@@ -91,7 +91,7 @@ Flags explained:
 | `--max-instances=5` | Hard cap on concurrent container instances |
 | `--memory=512Mi` | RAM per container instance |
 
-After deploy, gcloud prints the service URL: `https://mycoolproject-<hash>-uc.a.run.app`
+After deploy, `gcloud` prints the service URL: `https://mycoolproject-<hash>-uc.a.run.app`
 
 ---
 
