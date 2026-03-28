@@ -6,8 +6,8 @@ repo_url: https://github.com/oliverm91/django-gcp-deployment-guide
 
 theme:
   name: material
-  favicon: material/rocket-launch # Uses a built-in material icon as a favicon
-  logo: material/cloud-check # Uses a built-in material icon as the header logo
+  favicon: assets/logo.svg
+  logo: assets/logo.svg
   features:
     - navigation.sections
     - navigation.top
