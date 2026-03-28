@@ -1,6 +1,7 @@
 ---
 description: "Configure Keyless Workload Identity Federation so GitHub Actions can securely authenticate to GCP without JSON keys."
 image: assets/social-banner.png
+
 ---
 # 09 — Workload Identity Federation (Keyless GitHub Actions Auth)
 
@@ -52,6 +53,7 @@ gcloud iam workload-identity-pools providers create-oidc github-provider \
 ```
 
 Attribute mapping explained:
+
 - `google.subject=assertion.sub` — maps the JWT's `sub` field to GCP's subject
 - `attribute.repository=assertion.repository` — exposes the repo name as a GCP attribute so we can restrict to specific repos
 

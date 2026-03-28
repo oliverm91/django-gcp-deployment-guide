@@ -1,6 +1,7 @@
 ---
 description: "Una guía de referencia rápida y hoja de trucos con todos los comandos de gcloud y despliegue usados en la guía de Cloud Run para Django."
 image: assets/social-banner.png
+
 ---
 # 11 — Referencia Rápida
 

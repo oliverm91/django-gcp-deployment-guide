@@ -1,6 +1,7 @@
 ---
 description: "Almacena de forma segura variables de entorno, contraseñas y Django SECRET_KEYs usando GCP Secret Manager."
 image: assets/social-banner.png
+
 ---
 # 04 — Secret Manager
 

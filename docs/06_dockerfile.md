@@ -1,6 +1,7 @@
 ---
 description: "Write a production-ready Dockerfile optimized for running Django apps on Cloud Run using uv."
 image: assets/social-banner.png
+
 ---
 # 06 — Dockerfile
 
@@ -73,6 +74,7 @@ CMD ["uv", "run", "gunicorn", \
 ```
 
 Gunicorn options:
+
 - `--bind 0.0.0.0:8080` — listen on all interfaces, port 8080 (Cloud Run's expected port)
 - `--workers 2` — 2 worker processes handle requests concurrently
 - `--timeout 60` — kill workers that take longer than 60 s (prevents hanging requests)

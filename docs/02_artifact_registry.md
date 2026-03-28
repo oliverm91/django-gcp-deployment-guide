@@ -1,6 +1,7 @@
 ---
 description: "Create a private Docker Artifact Registry in GCP to tightly control and store your containerized Django app images."
 image: assets/social-banner.png
+
 ---
 # 02 — Artifact Registry
 
@@ -43,6 +44,7 @@ southamerica-east1-docker.pkg.dev/mycoolproject-prod/mycoolproject-repo/app:<tag
 ```
 
 Tags used in this guide:
+
 - `latest` — always points to the most recent build
 - `<git-sha>` — e.g. `a3f9c12` — unique tag per commit, used for precise rollbacks
 

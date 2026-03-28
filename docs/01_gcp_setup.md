@@ -1,6 +1,7 @@
 ---
 description: "Learn how to set up a new Google Cloud Platform project, enable APIs, and configure service accounts for secure access."
 image: assets/social-banner.png
+
 ---
 # 01 — GCP Project Setup
 
@@ -87,6 +88,7 @@ A service account is an identity for a program (not a person). Instead of your C
 # Using a dedicated account (not your personal account) limits blast radius if compromised.
 # Result: visible at console.cloud.google.com/iam-admin/serviceaccounts
 gcloud iam service-accounts create mycoolproject-run-sa \
+
   --display-name="MyCoolProject Cloud Run SA"
 ```
 
@@ -103,18 +105,21 @@ SA="mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com"
 # Without this, the container cannot reach the database at runtime.
 # Result: visible at console.cloud.google.com/iam-admin/iam (filter by service account)
 gcloud projects add-iam-policy-binding mycoolproject-prod \
+
   --member="serviceAccount:$SA" \
   --role="roles/cloudsql.client"
 
 # Grants permission to read secrets from Secret Manager.
 # Without this, Cloud Run can't fetch DATABASE_URL, SECRET_KEY, etc. at startup.
 gcloud projects add-iam-policy-binding mycoolproject-prod \
+
   --member="serviceAccount:$SA" \
   --role="roles/secretmanager.secretAccessor"
 
 # Grants permission to read and write objects in Cloud Storage buckets.
 # Needed for collectstatic (write) and serving user-uploaded media files (read).
 gcloud projects add-iam-policy-binding mycoolproject-prod \
+
   --member="serviceAccount:$SA" \
   --role="roles/storage.objectAdmin"
 ```

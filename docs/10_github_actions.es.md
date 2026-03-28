@@ -1,6 +1,7 @@
 ---
 description: "Construye un pipeline CI/CD completamente automatizado con GitHub Actions para testear, compilar, ejecutar migraciones y desplegar en Cloud Run."
 image: assets/social-banner.png
+
 ---
 # 10 — Pipeline CI/CD con GitHub Actions
 

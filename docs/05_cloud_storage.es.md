@@ -1,6 +1,7 @@
 ---
 description: "Configura buckets de Cloud Storage para manejar archivos static y media subidos por usuarios mediante django-storages."
 image: assets/social-banner.png
+
 ---
 # 05 — Cloud Storage (Archivos media y static)
 

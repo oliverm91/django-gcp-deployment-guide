@@ -1,6 +1,7 @@
 ---
 description: "Configure Google Cloud Storage buckets to handle static files and user-uploaded media seamlessly via Django-storages."
 image: assets/social-banner.png
+
 ---
 # 05 — Cloud Storage (Media & Static Files)
 

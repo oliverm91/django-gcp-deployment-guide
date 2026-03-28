@@ -1,6 +1,7 @@
 ---
 description: "Securely store environment variables, passwords, and Django SECRET_KEYs using GCP Secret Manager."
 image: assets/social-banner.png
+
 ---
 # 04 — Secret Manager
 

@@ -1,6 +1,7 @@
 ---
 description: "Manually deploy your Dockerized Django app to Cloud Run for the first time to verify end-to-end functionality."
 image: assets/social-banner.png
+
 ---
 # 07 — First Deploy
 
@@ -49,6 +50,7 @@ docker push $IMAGE:latest
 ### What is Cloud Run?
 
 Cloud Run is a serverless container platform. You give it a Docker image and it:
+
 - Starts container instances to handle incoming requests
 - Scales to zero when there's no traffic (no cost when idle)
 - Scales up automatically under load
@@ -140,6 +142,7 @@ In subsequent deploys, GitHub Actions updates the job's image and re-runs it aut
 # Prints the public URL of the deployed service.
 # Paste it in your browser to confirm the site is reachable.
 gcloud run services describe mycoolproject \
+
   --region=southamerica-east1 \
   --format="value(status.url)"
 
@@ -162,6 +165,7 @@ You can't run `manage.py createsuperuser` interactively in Cloud Run. Instead, u
 # --noinput reads email/password from env vars instead of prompting.
 # Use a temporary password here — change it immediately after first login at /admin/.
 gcloud run jobs create createsuperuser \
+
   --image=$IMAGE:latest \
   --region=southamerica-east1 \
   --service-account=mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com \

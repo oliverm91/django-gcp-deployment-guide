@@ -1,6 +1,7 @@
 ---
 description: "Una guía completa para desplegar una aplicación web Django en Google Cloud Platform usando Cloud Run, Cloud SQL y GitHub Actions."
 image: assets/social-banner.png
+
 ---
 # Guía de Despliegue de Django en GCP
 
@@ -79,12 +80,15 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 ### Orden recomendado de configuración para minimizar costos
 
 Primero estos — todos gratuitos:
+
 - Capítulos 01, 02, 04, 09, 10 (proyecto GCP, Artifact Registry, Secret Manager, Workload Identity, GitHub Actions)
 
 Luego casi gratuitos:
+
 - Capítulos 05, 06, 07 (Cloud Storage, Dockerfile, despliegue en Cloud Run)
 
 Luego cuando estés listo para salir a producción (comienzan los costos):
+
 - Capítulo 03 — Cloud SQL (~$7–10/mes desde el momento en que se crea)
 - Capítulo 08 — Dominio personalizado (~$10–15/año, pagado a tu registrador)
 

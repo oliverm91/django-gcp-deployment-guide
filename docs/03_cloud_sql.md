@@ -1,6 +1,7 @@
 ---
 description: "Provision and securely connect a managed PostgreSQL database using Cloud SQL for your production Django application."
 image: assets/social-banner.png
+
 ---
 # 03 — Cloud SQL (PostgreSQL Database)
 
@@ -46,6 +47,7 @@ gcloud sql instances create mycoolproject-db \
 ```
 
 Options explained:
+
 - `--tier=db-f1-micro` — smallest instance, 0.6 GB RAM (~$7/mo). Sufficient for early traffic.
 - `--storage-auto-increase` — disk grows automatically as data grows.
 - `--backup-start-time=03:00` — daily automatic backup at 3 AM UTC.
@@ -85,6 +87,7 @@ postgresql://djangouser:<password>@/mycoolproject?host=/cloudsql/mycoolproject-p
 ```
 
 Breaking it down:
+
 - `djangouser` — the DB user created above
 - `<password>` — the password set above
 - `/mycoolproject` — the database name

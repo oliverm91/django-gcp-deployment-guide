@@ -1,6 +1,7 @@
 ---
 description: "Mapea tu dominio personalizado y provisiona automáticamente un certificado SSL gestionado para tu servicio en Cloud Run."
 image: assets/social-banner.png
+
 ---
 # 08 — Dominio Personalizado y SSL
 

@@ -1,6 +1,7 @@
 ---
 description: "Configura Workload Identity Federation sin claves para que GitHub Actions se autentique en GCP de forma segura sin usar claves JSON."
 image: assets/social-banner.png
+
 ---
 # 09 — Workload Identity Federation (Autenticación sin claves en GitHub Actions)
 
@@ -52,6 +53,7 @@ gcloud iam workload-identity-pools providers create-oidc github-provider \
 ```
 
 Explicación del mapeo de atributos:
+
 - `google.subject=assertion.sub` — mapea el campo `sub` del JWT al sujeto de GCP
 - `attribute.repository=assertion.repository` — expone el nombre del repo como atributo de GCP para poder restringir a repos específicos
 
