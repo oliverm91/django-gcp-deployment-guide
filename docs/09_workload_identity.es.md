@@ -90,6 +90,8 @@ La salida se ve así:
 projects/123456789/locations/global/workloadIdentityPools/github-pool/providers/github-provider
 ```
 
+**Copia este string completo** — esto es lo que pegas como valor del secret `GCP_WORKLOAD_IDENTITY_PROVIDER` en el siguiente paso.
+
 ---
 
 ## Agregar Secrets de GitHub
@@ -98,7 +100,7 @@ Ve a **GitHub → tu repo → Settings → Secrets and variables → Actions →
 
 | Nombre del secret | Valor |
 |---|---|
-| `GCP_WORKLOAD_IDENTITY_PROVIDER` | El nombre completo del recurso del proveedor del último comando |
+| `GCP_WORKLOAD_IDENTITY_PROVIDER` | El string completo del último comando, por ejemplo `projects/123456789/locations/global/workloadIdentityPools/github-pool/providers/github-provider` |
 | `GCP_SERVICE_ACCOUNT` | `mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com` |
 
 Estos son los únicos dos valores que GitHub necesita. Sin archivo de clave JSON, sin contraseña.
