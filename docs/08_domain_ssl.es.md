@@ -23,7 +23,14 @@ Esta URL ya tiene HTTPS con un certificado SSL gestionado por Google. Para produ
 
 ## Cómo funciona SSL aquí
 
-Cloud Run maneja la terminación SSL — presenta el certificado de tu dominio a los navegadores, descifra el tráfico HTTPS entrante y reenvía HTTP plano a tu contenedor internamente. No necesitas Certbot, nginx ni ninguna gestión de certificados. Google provisiona y renueva automáticamente el certificado de forma gratuita.
+La titularidad del SSL depende de cómo configures tu DNS. Hay dos opciones:
+
+| Configuración | Quién gestiona el SSL | Consideraciones |
+|---|---|---|
+| **Cloudflare solo DNS (nube gris)** | **GCP / Cloud Run** | Google provisiona y renueva automáticamente tu certificado de forma gratuita. Sin intermediarios. Esto es lo que usa esta guía. |
+| **Cloudflare con proxy (nube naranja)** | **Cloudflare** | Cloudflare termina el SSL y re-cifra el tráfico hacia GCP. Agrega el WAF y la protección DDoS de Cloudflare. Más complejo de configurar correctamente — necesitas establecer el modo SSL de Cloudflare en "Full (strict)" o tendrás bucles de redirección. |
+
+Esta guía usa **solo DNS** — Cloud Run lo maneja todo. GCP habla directamente con el DNS de tu dominio, provisiona un certificado gratuito a través de Google Trust Services y termina todo el SSL en el borde de Cloud Run. Sin Certbot, sin nginx, sin gestión de certificados necesaria.
 
 ---
 
@@ -70,7 +77,11 @@ Si usas **Cloudflare** (recomendado — protección DDoS gratuita, filtrado de b
 1. Agrega tu dominio a Cloudflare (plan gratuito)
 2. Apunta los nameservers de tu registrador a los de Cloudflare
 3. En el DNS de Cloudflare, agrega el registro que GCP te proporcionó
-4. Establece el proxy en **Solo DNS (nube gris)** — Cloud Run gestiona SSL por sí mismo; el proxy de Cloudflare interferiría con la provisión del certificado
+4. Establece el proxy en **Solo DNS (nube gris)** ☁️
+
+> **¿Por qué nube gris?** Cuando estableces el registro en "Solo DNS", Cloudflare actúa como un resolvedor de DNS puro — simplemente le dice a los navegadores dónde está tu servidor. GCP maneja entonces el certificado SSL directamente con tu dominio. Si habilitas la nube naranja (proxy), Cloudflare intercepta todo el tráfico e intenta terminar SSL por su cuenta, lo que rompe la provisión del certificado de GCP y causa errores `SSL_ERROR_RX_RECORD_TOO_LONG` en el navegador.
+>
+> Igual obtienes la **protección DDoS** y el **filtrado de bots** de Cloudflare en el plan gratuito con el modo solo DNS — simplemente funciona en la capa de red en lugar de la capa de aplicación.
 
 Si usas tu registrador directamente (NIC.cl, Namecheap, etc.):
 

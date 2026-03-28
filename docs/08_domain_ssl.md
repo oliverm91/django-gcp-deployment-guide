@@ -23,7 +23,14 @@ This URL already has HTTPS with a Google-managed SSL certificate. For production
 
 ## How SSL works here
 
-Cloud Run handles SSL termination — it presents your domain's certificate to browsers, decrypts incoming HTTPS traffic, and forwards plain HTTP to your container internally. You don't need Certbot, nginx, or any certificate management. Google provisions and auto-renews the certificate for free.
+SSL ownership depends on how you configure your DNS. There are two options:
+
+| Setup | Who manages SSL | Trade-off |
+|---|---|---|
+| **Cloudflare DNS only (grey cloud)** | **GCP / Cloud Run** | Google provisions and auto-renews your certificate for free. No middleman. This is what this guide uses. |
+| **Cloudflare proxied (orange cloud)** | **Cloudflare** | Cloudflare terminates SSL and re-encrypts traffic to GCP. Adds Cloudflare's WAF and DDoS protection. More complex to set up correctly — you need to set Cloudflare SSL mode to "Full (strict)" or you'll get redirect loops. |
+
+This guide uses **DNS only** — Cloud Run handles everything. GCP talks directly to your domain's DNS, provisions a free certificate via Google Trust Services, and terminates all SSL at the Cloud Run edge. No Certbot, no nginx, no certificate management needed.
 
 ---
 
@@ -70,7 +77,11 @@ If using **Cloudflare** (recommended — free DDoS protection, bot filtering):
 1. Add your domain to Cloudflare (free plan)
 2. Point your registrar's nameservers to Cloudflare's
 3. In Cloudflare DNS, add the record GCP gave you
-4. Set proxy to **DNS only (grey cloud)** — Cloud Run manages SSL itself; Cloudflare proxying would interfere with certificate provisioning
+4. Set proxy to **DNS only (grey cloud)** ☁️
+
+> **Why grey cloud?** When you set the record to "DNS only", Cloudflare acts as a pure DNS resolver — it just tells browsers where your server is. GCP then handles the SSL certificate directly with your domain. If you enable the orange cloud (proxied), Cloudflare intercepts all traffic and tries to terminate SSL itself, which breaks GCP's certificate provisioning and causes `SSL_ERROR_RX_RECORD_TOO_LONG` errors in the browser.
+>
+> You still get Cloudflare's **DDoS protection** and **bot filtering** on the free plan with DNS-only mode — it just works at the network layer rather than the application layer.
 
 If using your registrar directly (NIC.cl, Namecheap, etc.):
 
