@@ -100,4 +100,4 @@ Si no agrega estos registros DNS, es probable que Gmail y Outlook bloqueen sus c
 - [09 — Workload Identity Federation (Auth de GitHub sin llaves)](09_workload_identity.md)
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.md)
 - [11 — Referencia Rápida](11_quick_reference.md)
-- **12 — Bonus: Email Personalizado (@dominio.cl)** (capítulo actual)
+- [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.md)
