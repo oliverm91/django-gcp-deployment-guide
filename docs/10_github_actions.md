@@ -124,6 +124,25 @@ jobs:
             --region=${{ env.REGION }}
 ```
 
+## Workflow-level `env` block
+
+At the top of the workflow, before the `jobs:` section, there is an `env:` block:
+
+```yaml
+env:
+  REGION: southamerica-east1
+  IMAGE: southamerica-east1-docker.pkg.dev/mycoolproject-prod/mycoolproject-repo/app
+```
+
+This defines **workflow-level environment variables** — constants available to every job and every step in the file. They are referenced later as `${{ env.REGION }}` and `${{ env.IMAGE }}`. The benefit is that if you ever change your region or project name, you update it in exactly one place instead of hunting through every `gcloud` command.
+
+| Variable | Value | Why it's here |
+|---|---|---|
+| `REGION` | `southamerica-east1` | The GCP region where Cloud Run, Artifact Registry, and Cloud SQL all live. Repeated in every `gcloud` and `docker` command. |
+| `IMAGE` | `southamerica-east1-docker.pkg.dev/mycoolproject-prod/mycoolproject-repo/app` | The full Artifact Registry path for the Docker image. Broken down: `<region>-docker.pkg.dev/<project>/<repository>/<image-name>`. Used when building, pushing, and deploying. |
+
+> **`env:` vs `secrets:`** — `env:` is for non-sensitive configuration you are comfortable committing to your repo. `secrets:` (used for `GCP_WORKLOAD_IDENTITY_PROVIDER` and `GCP_SERVICE_ACCOUNT`) is for sensitive values stored encrypted in GitHub, never visible in logs or the repo history.
+
 ---
 
 ## What happens on each push to main
