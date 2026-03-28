@@ -29,6 +29,8 @@ La identidad de correo electrónico se establece enteramente a través de su **p
 | **TXT** | `google._domainkey` | `v=DKIM1; k=rsa; p=MIGfMA0GCS...` | Integridad: Una firma digital por correo. |
 | **TXT** | `_dmarc` | `v=DMARC1; p=quarantine;` | Política: "¿Qué hacer si los demás fallan?" |
 
+> 💡 **Nota:** Los valores de arriba son **ejemplos**. Los registros reales (especialmente los largos strings de DKIM) se los entregará el proveedor de correo que elija (Brevo, Google Workspace, etc.) en las siguientes secciones.
+
 ---
 
 ## 2. Envío de Correo desde la Aplicación (SMTP)

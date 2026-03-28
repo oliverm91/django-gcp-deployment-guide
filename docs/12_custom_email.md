@@ -29,6 +29,8 @@ Email identity is established entirely through your **DNS provider** (Cloudflare
 | **TXT** | `google._domainkey` | `v=DKIM1; k=rsa; p=MIGfMA0GCS...` | Integrity: A digital signature per email. |
 | **TXT** | `_dmarc` | `v=DMARC1; p=quarantine;` | Policy: "What to do if the others fail?" |
 
+> 💡 **Note:** The values above are **examples**. The actual records (especially the long DKIM strings) will be provided to you by your chosen email provider (Brevo, Google Workspace, etc.) in the following sections.
+
 ---
 
 ## 2. Sending Email from the App (SMTP)
