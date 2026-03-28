@@ -49,9 +49,9 @@ nav:
 
 plugins:
   - search
-  - i18n:
-      docs_structure: suffix
-      fallback_to_default: true
+  #- i18n:
+  #    docs_structure: suffix
+  #    fallback_to_default: true
       #languages:
       #  - locale: en
       #    default: true
