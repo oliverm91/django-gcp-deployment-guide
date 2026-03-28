@@ -1,5 +1,5 @@
 ---
-description: "Step 3: Provision and securely connect a managed PostgreSQL database using Cloud SQL for your production Django application."
+description: "Provision and securely connect a managed PostgreSQL database using Cloud SQL for your production Django application."
 image: assets/social-banner.png
 ---
 # 03 — Cloud SQL (PostgreSQL Database)

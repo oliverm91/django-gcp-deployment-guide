@@ -52,12 +52,12 @@ plugins:
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
-      languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
-        - locale: es
-          name: Español
-          build: true
+      #languages:
+      #  - locale: en
+      #    default: true
+      #    name: English
+      #    build: true
+      #  - locale: es
+      #    name: Español
+      #    build: true
 

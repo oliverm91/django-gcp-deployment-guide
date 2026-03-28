@@ -1,5 +1,5 @@
 ---
-description: "Step 2: Create a private Docker Artifact Registry in GCP to tightly control and store your containerized Django app images."
+description: "Create a private Docker Artifact Registry in GCP to tightly control and store your containerized Django app images."
 image: assets/social-banner.png
 ---
 # 02 — Artifact Registry

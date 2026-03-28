@@ -1,0 +1,9 @@
+[project]
+name = "gcp-deploy-guide"
+version = "0.1.0"
+description = "A guide to deploy django projects on Google Cloud Platform GCP."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "deep-translator>=1.11.4",
+]
