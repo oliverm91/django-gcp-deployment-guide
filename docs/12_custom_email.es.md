@@ -18,8 +18,16 @@ Depende del uso:
 - **Para la Aplicación (Envío automático):** Generalmente es **gratuito** para volúmenes bajos (ej. menos de 300 correos/día con Brevo). Puedes inventar cualquier dirección como `notificaciones@tu-dominio.cl` sin costo extra.
 - **Para Humanos (Bandeja de entrada):** Si quieres entrar a una página tipo Gmail para leer y responder, generalmente es **pagado**. Google Workspace cobra ~$6 USD por usuario al mes.
 
-### ¿Dónde se configura?
-No se configura en NIC.cl ni en el "registro" del dominio. Se configura en tu **proveedor de DNS** (Cloudflare o GCP Cloud DNS) mediante registros especiales llamados MX y TXT.
+### Configuración de Registros DNS
+
+La identidad de correo electrónico se establece enteramente a través de su **proveedor de DNS** (Cloudflare o GCP Cloud DNS). Debe añadir estos registros para que otros servidores sepan cómo responderle y confíen en sus mensajes:
+
+| Tipo | Nombre | Contenido / Valor | Propósito |
+|---|---|---|---|
+| **MX** | `@` | `aspmx.l.google.com` (ejemplo) | Entrega: "¿Hacia dónde redirijo el correo entrante?" |
+| **TXT** | `@` | `v=spf1 include:_spf.google.com ~all` | Autenticidad: "¿Quién tiene permiso para enviar correos por mí?" |
+| **TXT** | `google._domainkey` | `v=DKIM1; k=rsa; p=MIGfMA0GCS...` | Integridad: Una firma digital por correo. |
+| **TXT** | `_dmarc` | `v=DMARC1; p=quarantine;` | Política: "¿Qué hacer si los demás fallan?" |
 
 ---
 

@@ -18,8 +18,16 @@ It depends on the usage:
 - **For the Application (Automatic sending):** Generally **free** for low volumes (e.g., less than 300 emails/day with Brevo). You can invent any address like `notifications@your-domain.cl` at no extra cost.
 - **For Humans (Inbox):** If you want to log into a Gmail-like interface to read and reply, it's generally **paid**. Google Workspace costs ~$6 USD per user per month.
 
-### Where is it configured?
-It's not configured in NIC.cl or the domain "registry". It's configured with your **DNS provider** (Cloudflare or GCP Cloud DNS) using special records called MX and TXT.
+### Configure DNS Records
+
+Email identity is established entirely through your **DNS provider** (Cloudflare or GCP Cloud DNS). You must add these records so other servers know how to find you and trust your messages:
+
+| Type | Name | Content / Value | Purpose |
+|---|---|---|---|
+| **MX** | `@` | `aspmx.l.google.com` (example) | Delivery: "Where do I send mail for this domain?" |
+| **TXT** | `@` | `v=spf1 include:_spf.google.com ~all` | Authenticity: "Who is allowed to send mail for me?" |
+| **TXT** | `google._domainkey` | `v=DKIM1; k=rsa; p=MIGfMA0GCS...` | Integrity: A digital signature per email. |
+| **TXT** | `_dmarc` | `v=DMARC1; p=quarantine;` | Policy: "What to do if the others fail?" |
 
 ---
 
