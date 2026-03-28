@@ -7,6 +7,7 @@ repo_url: https://github.com/oliverm91/django-gcp-deployment-guide
 
 theme:
   name: material
+  custom_dir: overrides
   favicon: assets/logo.svg
   logo: assets/logo.svg
   features:
