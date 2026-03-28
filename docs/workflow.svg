@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 250" width="100%" height="250">
+    <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L0,8 L8,4 z" fill="#c3c8cf" />
+        </marker>
+        <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L0,8 L8,4 z" fill="#2ea44f" />
+        </marker>
+        <style>
+            .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+            .box { fill: #ffffff; stroke: #e1e4e8; stroke-width: 1px; rx: 6px; }
+            .title { font-weight: 600; font-size: 14px; fill: #24292e; text-anchor: middle; }
+            .subtitle { font-weight: 400; font-size: 12px; fill: #586069; text-anchor: middle; }
+            .line { stroke: #c3c8cf; stroke-width: 2px; }
+            .line-green { stroke: #2ea44f; stroke-width: 2px; }
+        </style>
+    </defs>
+
+    <rect width="100%" height="100%" fill="#f6f8fa" rx="10"/>
+
+    <!-- ROW 1 -->
+    <!-- Write Code -->
+    <g transform="translate(40, 40)">
+        <rect width="120" height="50" class="box"/>
+        <text x="60" y="30" class="text title">Write Code</text>
+    </g>
+    <path d="M160,65 L190,65" class="line" marker-end="url(#arrow)"/>
+
+    <!-- Push Branch -->
+    <g transform="translate(200, 40)">
+        <rect width="120" height="50" class="box"/>
+        <text x="60" y="30" class="text title">Push Branch</text>
+    </g>
+    <path d="M320,65 L350,65" class="line" marker-end="url(#arrow)"/>
+
+    <!-- Open PR -->
+    <g transform="translate(360, 40)">
+        <rect width="130" height="50" class="box"/>
+        <text x="65" y="30" class="text title">Open PR</text>
+    </g>
+    <path d="M490,65 L520,65" class="line" marker-end="url(#arrow)"/>
+
+    <!-- Tests Run -->
+    <g transform="translate(530, 40)">
+        <rect width="160" height="50" class="box" stroke="#0366d6" stroke-width="2"/>
+        <text x="80" y="30" class="text title" fill="#0366d6">Run Tests</text>
+    </g>
+    
+    <!-- Connector to Row 2 -->
+    <path d="M610,90 L610,120 L100,120 L100,150" stroke="#c3c8cf" stroke-width="2" marker-end="url(#arrow)" fill="none" stroke-dasharray="4,4"/>
+
+
+    <!-- ROW 2 -->
+    <!-- Merge to Main -->
+    <g transform="translate(40, 150)">
+        <rect width="120" height="50" class="box" stroke="#6f42c1" stroke-width="2"/>
+        <text x="60" y="30" class="text title" fill="#6f42c1">Merge to Main</text>
+    </g>
+    <path d="M160,175 L190,175" class="line" marker-end="url(#arrow)"/>
+
+    <!-- GitHub Actions Block -->
+    <g transform="translate(200, 140)">
+        <rect width="660" height="70" class="box" fill="#ffffff" stroke="#2ea44f"/>
+        <text x="10" y="20" class="text subtitle" style="text-anchor: start; font-weight: 600;" fill="#2ea44f">GitHub Actions</text>
+        
+        <!-- Test -->
+        <g transform="translate(10, 30)">
+            <rect width="100" height="30" class="box" fill="#f1f8ff" stroke="#0366d6"/>
+            <text x="50" y="20" class="text title" font-size="12px">Test</text>
+        </g>
+        <path d="M120,45 L140,45" class="line-green" marker-end="url(#arrow-green)" transform="translate(0, 30)"/>
+
+        <!-- Build -->
+        <g transform="translate(150, 30)">
+            <rect width="100" height="30" class="box" fill="#f1f8ff" stroke="#0366d6"/>
+            <text x="50" y="20" class="text title" font-size="12px">Build</text>
+        </g>
+        <path d="M260,45 L280,45" class="line-green" marker-end="url(#arrow-green)" transform="translate(0, 30)"/>
+
+        <!-- Migrate -->
+        <g transform="translate(290, 30)">
+            <rect width="100" height="30" class="box" fill="#f1f8ff" stroke="#0366d6"/>
+            <text x="50" y="20" class="text title" font-size="12px">Migrate</text>
+        </g>
+        <path d="M400,45 L420,45" class="line-green" marker-end="url(#arrow-green)" transform="translate(0, 30)"/>
+
+        <!-- Deploy -->
+        <g transform="translate(430, 30)">
+            <rect width="110" height="30" class="box" fill="#dcffe4" stroke="#2ea44f"/>
+            <text x="55" y="20" class="text title" font-size="12px">Deploy</text>
+        </g>
+        
+        <!-- Live Cloud Run -->
+        <path d="M550,45 L570,45" class="line-green" marker-end="url(#arrow-green)" transform="translate(0, 30)"/>
+        <g transform="translate(580, 25)">
+            <rect width="60" height="40" class="box" fill="#1d1d1f"/>
+            <text x="30" y="25" class="text title" fill="#fff" font-size="16px">LIVE</text>
+        </g>
+
+    </g>
+
+</svg>

@@ -1,0 +1,44 @@
+site_name: GCP Deployment Guide
+site_description: A comprehensive CI/CD deployment guide for modern Django apps using Google Cloud Platform.
+site_url: "" # To be filled when deploying to GitHub Pages
+
+theme:
+  name: material
+  favicon: material/rocket-launch # Uses a built-in material icon as a favicon
+  logo: material/cloud-check # Uses a built-in material icon as the header logo
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - "Overview": index.md
+  - "Step 1: GCP Setup": 01_gcp_setup.md
+  - "Step 2: Artifact Registry": 02_artifact_registry.md
+  - "Step 3: Cloud SQL (DB)": 03_cloud_sql.md
+  - "Step 4: Secret Manager": 04_secret_manager.md
+  - "Step 5: Cloud Storage": 05_cloud_storage.md
+  - "Step 6: Dockerfile": 06_dockerfile.md
+  - "Step 7: First Deploy": 07_first_deploy.md
+  - "Step 8: Domain & SSL": 08_domain_ssl.md
+  - "Step 9: Keyless Auth": 09_workload_identity.md
+  - "Step 10: CI/CD Pipeline": 10_github_actions.md
+  - "Quick Reference Base": 11_quick_reference.md

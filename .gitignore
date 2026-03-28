@@ -1,0 +1,7 @@
+# MkDocs build directory
+site/
+
+# Virtual environments
+.venv/
+env/
+venv/
