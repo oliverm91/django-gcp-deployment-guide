@@ -48,6 +48,12 @@ If you need to receive emails from customers and reply to them professionally, y
 | MX | @ | `ASPMX.L.GOOGLE.COM` | 1 |
 | MX | @ | `ALT1.ASPMX.L.GOOGLE.COM` | 5 |
 
+### Free Alternative: Email Forwarding
+If you use **Cloudflare**, you can use their **Email Forwarding** service for free:
+1.  Enable "Email Routing" in the Cloudflare dashboard.
+2.  Create a rule: `info@mycoolproject.cl` → `your-personal-gmail@gmail.com`.
+3.  **Cost:** $0. You receive professional emails in your personal inbox. You cannot "reply as" the domain easily, but it's perfect for starting out.
+
 ---
 
 ## 4. Why is there no "Email" menu in GCP?

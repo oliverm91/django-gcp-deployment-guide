@@ -48,6 +48,12 @@ Si necesitas recibir correos de clientes y responderles como un profesional, nec
 | MX | @ | `ASPMX.L.GOOGLE.COM` | 1 |
 | MX | @ | `ALT1.ASPMX.L.GOOGLE.COM` | 5 |
 
+### Alternativa Gratuita: Email Forwarding
+Si utilizas **Cloudflare**, puedes usar su servicio de **Email Forwarding** gratis:
+1.  Habilita "Email Routing" en el dashboard de Cloudflare.
+2.  Crea una regla: `info@mycoolproject.cl` → `tu-gmail-personal@gmail.com`.
+3.  **Costo:** $0. Recibes los correos profesionales en tu bandeja personal. No puedes "responder como" el dominio fácilmente, pero es ideal para empezar.
+
 ---
 
 ## 4. ¿Por qué no hay un menú de "Email" en GCP?
