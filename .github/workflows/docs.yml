@@ -20,10 +20,12 @@ jobs:
           enable-cache: false
 
       - name: Install dependencies
-        run: uv pip install mkdocs-material --system
+        run: |
+          uv venv
+          uv pip install mkdocs-material
 
       - name: Deploy to GitHub Pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          mkdocs gh-deploy --force
+          uv run mkdocs gh-deploy --force
