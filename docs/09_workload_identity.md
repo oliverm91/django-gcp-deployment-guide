@@ -9,6 +9,12 @@ image: assets/social-banner.png
 
 > ✅ **Free.** Workload Identity Federation has no cost.
 
+## Why does GitHub Actions need to authenticate at all?
+
+When GitHub Actions runs your CI/CD pipeline, it's just a Linux machine on GitHub's servers with no special relationship to your GCP project. But the pipeline needs to do privileged things: push Docker images to Artifact Registry, trigger Cloud Run deployments, and update Cloud Run Jobs. All of these are protected GCP API calls — Google needs to verify that the caller is actually allowed to touch your project before it does anything.
+
+Without authentication, every `gcloud run deploy` or `docker push` command would fail with a `403 Permission denied` error. This chapter sets up that authentication.
+
 ## The problem with service account keys
 
 The naive way to authenticate GitHub Actions to GCP is to create a JSON key file for the service account and paste it into a GitHub secret. This works but has risks: the key file never expires, if it leaks it gives full access until manually revoked, and rotating it requires manual steps.
