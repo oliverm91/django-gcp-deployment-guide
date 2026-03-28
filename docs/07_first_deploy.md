@@ -1,5 +1,6 @@
 ---
 description: "Step 7: Manually deploy your Dockerized Django app to Cloud Run for the first time to verify end-to-end functionality."
+image: assets/social-banner.png
 ---
 # 07 — First Deploy
 

@@ -1,5 +1,6 @@
 ---
 description: "Step 8: Map your custom domain name and automatically provision a managed SSL certificate for your Cloud Run service."
+image: assets/social-banner.png
 ---
 # 08 — Custom Domain & SSL
 

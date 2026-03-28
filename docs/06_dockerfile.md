@@ -1,5 +1,6 @@
 ---
 description: "Step 6: Write a production-ready Dockerfile optimized for running Django apps on Cloud Run using uv."
+image: assets/social-banner.png
 ---
 # 06 — Dockerfile
 

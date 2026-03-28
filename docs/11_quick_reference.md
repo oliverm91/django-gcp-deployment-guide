@@ -1,5 +1,6 @@
 ---
 description: "A quick reference guide and cheat sheet for every gcloud and deployment command used throughout the Cloud Run Django guide."
+image: assets/social-banner.png
 ---
 # 11 — Quick Reference
 

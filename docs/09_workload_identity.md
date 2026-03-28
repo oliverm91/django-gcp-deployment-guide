@@ -1,5 +1,6 @@
 ---
 description: "Step 9: Configure Keyless Workload Identity Federation so GitHub Actions can securely authenticate to GCP without JSON keys."
+image: assets/social-banner.png
 ---
 # 09 — Workload Identity Federation (Keyless GitHub Actions Auth)
 

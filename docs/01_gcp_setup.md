@@ -1,5 +1,6 @@
 ---
 description: "Step 1: Learn how to set up a new Google Cloud Platform project, enable APIs, and configure service accounts for secure access."
+image: assets/social-banner.png
 ---
 # 01 — GCP Project Setup
 

@@ -1,5 +1,6 @@
 ---
 description: "A comprehensive guide to deploying a Django web application on Google Cloud Platform using Cloud Run, Cloud SQL, and GitHub Actions."
+image: assets/social-banner.png
 ---
 # Django Deployment guide using GCP
 
