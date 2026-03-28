@@ -1,6 +1,8 @@
 site_name: GCP Deployment Guide
 site_description: A comprehensive CI/CD deployment guide for modern Django apps using Google Cloud Platform.
 site_url: "https://oliverm91.github.io/django-gcp-deployment-guide/"
+repo_name: oliverm91/django-gcp-deployment-guide
+repo_url: https://github.com/oliverm91/django-gcp-deployment-guide
 
 theme:
   name: material
