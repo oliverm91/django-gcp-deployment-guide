@@ -14,6 +14,7 @@ Una vez que tienes tu dominio (ej. `mycoolproject.cl`) del [Capítulo 08](08_dom
 
 ### ¿Tengo que pagar por cada dirección?
 Depende del uso:
+
 - **Para la Aplicación (Envío automático):** Generalmente es **gratuito** para volúmenes bajos (ej. menos de 300 correos/día con Brevo). Puedes inventar cualquier dirección como `notificaciones@tu-dominio.cl` sin costo extra.
 - **Para Humanos (Bandeja de entrada):** Si quieres entrar a una página tipo Gmail para leer y responder, generalmente es **pagado**. Google Workspace cobra ~$6 USD por usuario al mes.
 

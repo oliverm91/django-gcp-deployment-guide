@@ -14,6 +14,7 @@ Once you own your domain (e.g. `mycoolproject.cl`) from [Chapter 08](08_domain_s
 
 ### Do I have to pay for each address?
 It depends on the usage:
+
 - **For the Application (Automatic sending):** Generally **free** for low volumes (e.g., less than 300 emails/day with Brevo). You can invent any address like `notifications@your-domain.cl` at no extra cost.
 - **For Humans (Inbox):** If you want to log into a Gmail-like interface to read and reply, it's generally **paid**. Google Workspace costs ~$6 USD per user per month.
 
