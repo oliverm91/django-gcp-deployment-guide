@@ -56,7 +56,7 @@
     <text x="395" y="210" class="text desc" fill="#34d399" text-anchor="middle">2. Returns short-lived Access Token instantly</text>
     <text x="395" y="250" class="text desc" fill="#34d399" text-anchor="middle" font-size="11px">(Valid exactly 1 hour, no keys to steal or leak!)</text>
 
-    <!-- Arrow 3: Magic connecting Pool to SA -->
-    <path d="M 660,140 L 660,195" class="line" marker-end="url(#arrow)" stroke-dasharray="4,4"/>
-    <text x="670" y="170" class="text desc" font-size="11px">Impersonate</text>
+    <!-- Arrow 3: Management connecting Pool to SA -->
+    <path d="M 660,200 L 660,255" class="line" marker-end="url(#arrow)" stroke-dasharray="4,4"/>
+    <text x="670" y="230" class="text desc" font-size="11px">Impersonate</text>
 </svg>
