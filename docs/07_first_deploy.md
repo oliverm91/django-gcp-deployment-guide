@@ -4,15 +4,19 @@ image: assets/social-banner.png
 ---
 # 07 — First Deploy
 
-![Runtime Architecture Diagram](assets/diagram-runtime.svg)
-
 ← [Previous: 06 — Dockerfile](06_dockerfile.md)
 
 > ✅ **Cloud Run is free at low traffic.** Free tier: 2 million requests/month, 360,000 GB-seconds of CPU, 180,000 GB-seconds of memory. With `--min-instances=0`, the service scales to zero when idle — no requests means no cost. A typical small marketplace stays within the free tier for months.
 
 This chapter deploys MyCoolProject to Cloud Run for the first time. This is done manually from your local machine. After this, GitHub Actions takes over for all subsequent deploys.
 
-> **Platform note:** From this point forward, file paths are shown in **Linux/Mac format** (`/dev/marketplace/`). On **Windows**, substitute with Windows paths (`C:\dev\marketplace\`). All `gcloud`, `docker`, and `uv` commands work identically on all platforms.
+---
+
+## Runtime Architecture
+
+Before we actually execute the deployment, let's look at exactly what we are building. The final production container acts as the brain of the operation, communicating dynamically with our configured suite of GCP services:
+
+![Runtime Architecture Component Map](assets/diagram-runtime.svg)
 
 ---
 

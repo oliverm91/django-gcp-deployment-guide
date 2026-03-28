@@ -4,8 +4,6 @@ image: assets/social-banner.png
 ---
 # 09 — Workload Identity Federation (Keyless GitHub Actions Auth)
 
-![Workload Identity Concept Map](assets/diagram-wif.svg)
-
 ← [Previous: 08 — Custom Domain & SSL](08_domain_ssl.md)
 
 > ✅ **Free.** Workload Identity Federation has no cost.
@@ -17,6 +15,8 @@ The naive way to authenticate GitHub Actions to GCP is to create a JSON key file
 ## What is Workload Identity Federation?
 
 Workload Identity Federation lets GitHub Actions prove its identity to GCP using a short-lived OIDC token (like a temporary ID card) instead of a permanent key. The flow is:
+
+![Workload Identity Concept Map](assets/diagram-wif.svg)
 
 1. GitHub Actions requests a signed JWT from GitHub's OIDC provider, proving "I am a workflow running in repo `YOUR_ORG/YOUR_REPO` on branch `main`"
 2. GCP's Workload Identity Pool verifies the JWT signature against GitHub's public keys
