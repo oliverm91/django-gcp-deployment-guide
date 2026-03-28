@@ -118,7 +118,7 @@ In this setup, migrations run as a **Cloud Run Job** — a one-off container exe
 
 - [01 — GCP Project Setup](01_gcp_setup.md)
 - [02 — Artifact Registry](02_artifact_registry.md)
-- **03 — Cloud SQL (PostgreSQL Database)** (current chapter)
+- [03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)
 - [04 — Secret Manager](04_secret_manager.md)
 - [05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)
 - [06 — Dockerfile](06_dockerfile.md)
@@ -127,3 +127,4 @@ In this setup, migrations run as a **Cloud Run Job** — a one-off container exe
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
+- [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)

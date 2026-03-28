@@ -130,7 +130,7 @@ The Cloud Run container will use this service account at runtime — it automati
 
 ## 📖 Navigation
 
-- **01 — GCP Project Setup** (current chapter)
+- [01 — GCP Project Setup](01_gcp_setup.md)
 - [02 — Artifact Registry](02_artifact_registry.md)
 - [03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)
 - [04 — Secret Manager](04_secret_manager.md)
@@ -141,3 +141,4 @@ The Cloud Run container will use this service account at runtime — it automati
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
+- [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)

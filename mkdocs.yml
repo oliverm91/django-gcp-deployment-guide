@@ -45,7 +45,8 @@ nav:
   - "Step 8: Domain & SSL": 08_domain_ssl.md
   - "Step 9: Keyless Auth": 09_workload_identity.md
   - "Step 10: CI/CD Pipeline": 10_github_actions.md
-  - "Quick Reference Base": 11_quick_reference.md
+  - "Step 11: Quick Reference": 11_quick_reference.md
+  - "Step 12: Custom Email": 12_custom_email.md
 
 plugins:
   - search
