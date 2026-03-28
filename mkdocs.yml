@@ -44,3 +44,7 @@ nav:
   - "Step 9: Keyless Auth": 09_workload_identity.md
   - "Step 10: CI/CD Pipeline": 10_github_actions.md
   - "Quick Reference Base": 11_quick_reference.md
+
+plugins:
+  - search
+
