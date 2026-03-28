@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <polygon points="32 4 58 19 58 45 32 60 6 45 6 19" fill="#0f172a" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
-  <g transform="translate(0.5, 3.5)">
+  <g transform="translate(-2.5, 1.5)">
     <path d="M 22 38 L 44 38 A 7 7 0 0 0 44 24 A 10 10 0 0 0 26 26 A 6 6 0 0 0 22 38 Z" fill="#38bdf8" />
   </g>
 </svg>
