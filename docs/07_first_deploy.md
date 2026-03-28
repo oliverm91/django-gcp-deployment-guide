@@ -4,6 +4,8 @@ image: assets/social-banner.png
 ---
 # 07 — First Deploy
 
+![Runtime Architecture Diagram](assets/diagram-runtime.svg)
+
 ← [Previous: 06 — Dockerfile](06_dockerfile.md)
 
 > ✅ **Cloud Run is free at low traffic.** Free tier: 2 million requests/month, 360,000 GB-seconds of CPU, 180,000 GB-seconds of memory. With `--min-instances=0`, the service scales to zero when idle — no requests means no cost. A typical small marketplace stays within the free tier for months.

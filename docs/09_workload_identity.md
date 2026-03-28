@@ -4,6 +4,8 @@ image: assets/social-banner.png
 ---
 # 09 — Workload Identity Federation (Keyless GitHub Actions Auth)
 
+![Workload Identity Concept Map](assets/diagram-wif.svg)
+
 ← [Previous: 08 — Custom Domain & SSL](08_domain_ssl.md)
 
 > ✅ **Free.** Workload Identity Federation has no cost.
