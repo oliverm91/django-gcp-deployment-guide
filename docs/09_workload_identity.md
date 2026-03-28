@@ -66,7 +66,8 @@ Attribute mapping explained:
 ```bash
 # Grants workflows from YOUR_ORG/YOUR_REPO permission to impersonate mycoolproject-run-sa.
 # This is the key security boundary: only your repo can become that service account.
-# Replace YOUR_ORG/YOUR_REPO with your actual GitHub org and repo name (e.g. acme/mycoolproject).
+# YOUR_ORG/YOUR_REPO format is just: username/reponame — no github.com prefix, no .git suffix.
+# Example: oliverm91/django-gcp-deployment-guide
 gcloud iam service-accounts add-iam-policy-binding \
   mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com \
   --role="roles/iam.workloadIdentityUser" \

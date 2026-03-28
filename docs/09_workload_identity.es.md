@@ -66,7 +66,8 @@ Explicación del mapeo de atributos:
 ```bash
 # Otorga a los workflows de TU_ORG/TU_REPO permiso para suplantar a mycoolproject-run-sa.
 # Este es el límite de seguridad clave: solo tu repo puede convertirse en esa service account.
-# Reemplaza TU_ORG/TU_REPO con tu org y nombre de repo actuales de GitHub (por ejemplo, acme/mycoolproject).
+# El formato TU_ORG/TU_REPO es simplemente: usuario/nombre-repo — sin prefijo github.com, sin sufijo .git.
+# Ejemplo: oliverm91/django-gcp-deployment-guide
 gcloud iam service-accounts add-iam-policy-binding \
   mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com \
   --role="roles/iam.workloadIdentityUser" \
