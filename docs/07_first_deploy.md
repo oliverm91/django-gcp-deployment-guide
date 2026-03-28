@@ -1,3 +1,6 @@
+---
+description: "Step 7: Manually deploy your Dockerized Django app to Cloud Run for the first time to verify end-to-end functionality."
+---
 # 07 — First Deploy
 
 ← [Previous: 06 — Dockerfile](06_dockerfile.md)

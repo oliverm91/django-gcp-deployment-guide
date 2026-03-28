@@ -1,3 +1,6 @@
+---
+description: "Step 3: Provision and securely connect a managed PostgreSQL database using Cloud SQL for your production Django application."
+---
 # 03 — Cloud SQL (PostgreSQL Database)
 
 ← [Previous: 02 — Artifact Registry](02_artifact_registry.md)

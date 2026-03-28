@@ -1,3 +1,6 @@
+---
+description: "Step 4: Securely store environment variables, passwords, and Django SECRET_KEYs using GCP Secret Manager."
+---
 # 04 — Secret Manager
 
 ← [Previous: 03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)

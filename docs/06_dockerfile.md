@@ -1,3 +1,6 @@
+---
+description: "Step 6: Write a production-ready Dockerfile optimized for running Django apps on Cloud Run using uv."
+---
 # 06 — Dockerfile
 
 ← [Previous: 05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)

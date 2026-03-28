@@ -1,3 +1,6 @@
+---
+description: "A quick reference guide and cheat sheet for every gcloud and deployment command used throughout the Cloud Run Django guide."
+---
 # 11 — Quick Reference
 
 ← [Previous: 10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)

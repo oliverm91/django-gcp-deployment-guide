@@ -1,3 +1,6 @@
+---
+description: "Step 5: Configure Google Cloud Storage buckets to handle static files and user-uploaded media seamlessly via Django-storages."
+---
 # 05 — Cloud Storage (Media & Static Files)
 
 ← [Previous: 04 — Secret Manager](04_secret_manager.md)

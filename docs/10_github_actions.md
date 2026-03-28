@@ -1,3 +1,6 @@
+---
+description: "Step 10: Build a completely automated CI/CD pipeline using GitHub Actions to test, build, run migrations, and deploy to Cloud Run."
+---
 # 10 — GitHub Actions CI/CD Pipeline
 
 ← [Previous: 09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)

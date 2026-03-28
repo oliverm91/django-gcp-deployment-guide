@@ -1,3 +1,6 @@
+---
+description: "Step 1: Learn how to set up a new Google Cloud Platform project, enable APIs, and configure service accounts for secure access."
+---
 # 01 — GCP Project Setup
 
 > ✅ **This chapter is free.** Project creation, API enablement, and service accounts have no cost.

@@ -1,3 +1,6 @@
+---
+description: "A comprehensive guide to deploying a Django web application on Google Cloud Platform using Cloud Run, Cloud SQL, and GitHub Actions."
+---
 # Django Deployment guide using GCP
 
 This guide walks through deploying MyCoolProject (a Django project) to Google Cloud Platform using a fully automated CI/CD pipeline.

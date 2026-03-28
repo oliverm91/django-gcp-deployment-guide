@@ -1,3 +1,6 @@
+---
+description: "Step 9: Configure Keyless Workload Identity Federation so GitHub Actions can securely authenticate to GCP without JSON keys."
+---
 # 09 — Workload Identity Federation (Keyless GitHub Actions Auth)
 
 ← [Previous: 08 — Custom Domain & SSL](08_domain_ssl.md)
