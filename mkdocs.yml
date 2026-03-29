@@ -1,6 +1,6 @@
 site_name: GCP Deployment Guide
 site_description: A comprehensive CI/CD deployment guide for modern Django apps using Google Cloud Platform.
-site_url: "https://oliverm91.github.io/django-gcp-deployment-guide/"
+site_url: https://oliverm91.github.io/django-gcp-deployment-guide/
 site_author: "Oliver Mohr Bonometti"
 repo_name: oliverm91/django-gcp-deployment-guide
 repo_url: https://github.com/oliverm91/django-gcp-deployment-guide
@@ -49,7 +49,6 @@ nav:
   - "Step 12: Custom Email": 12_custom_email.md
 
 plugins:
-  - search
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
@@ -61,6 +60,8 @@ plugins:
         - locale: es
           name: Español
           build: true
+  - search
+
 
 markdown_extensions:
   - pymdownx.highlight:
