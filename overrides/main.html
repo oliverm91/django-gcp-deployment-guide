@@ -9,7 +9,11 @@
 {# 2. Títulos Dinámicos para Redes Sociales #}
 {% set full_title = page.title ~ " - " ~ config.site_name %}
 {% if page.is_homepage %}
+{% if i18n_page_locale == 'es' %}
+{% set full_title = "Implementando proyectos Django con Google Cloud Platform" %}
+{% else %}
 {% set full_title = "Deploying Django projects using Google Cloud Platform" %}
+{% endif %}
 {% endif %}
 
 <meta property="og:title" content="{{ full_title }}" />
