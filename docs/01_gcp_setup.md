@@ -128,9 +128,19 @@ The Cloud Run container will use this service account at runtime — it automati
 
 ---
 
+---
+
+## 💡 Related Information: Google Login
+
+If your Django app uses **Google Login** (Gmail), these credentials (`GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`) are created and obtained from this same project in the Google Cloud Console (**APIs & Services > Credentials**).
+
+Once obtained, you should store them securely following the steps in [Chapter 04 — Secret Manager](04_secret_manager.md).
+
+---
+
 ## 📖 Navigation
 
-- [01 — GCP Project Setup](01_gcp_setup.md)
+- 01 — GCP Project Setup (Current chapter)
 - [02 — Artifact Registry](02_artifact_registry.md)
 - [03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)
 - [04 — Secret Manager](04_secret_manager.md)

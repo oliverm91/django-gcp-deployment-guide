@@ -132,7 +132,7 @@ After this step, `gcloud` and `docker` commands in the workflow automatically us
 - [06 — Dockerfile](06_dockerfile.md)
 - [07 — First Deploy](07_first_deploy.md)
 - [08 — Custom Domain & SSL](08_domain_ssl.md)
-- [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
+- 09 — Workload Identity Federation (Keyless GitHub Actions Auth) (Current chapter)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)

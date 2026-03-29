@@ -41,17 +41,18 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 
 ### Orden de configuración (sigue este orden en el primer despliegue)
 
-1. [Configuración del Proyecto GCP](01_gcp_setup.md) — proyecto, APIs, service account
-2. [Artifact Registry](02_artifact_registry.md) — donde se almacenan las imágenes Docker
-3. [Cloud SQL — Base de datos](03_cloud_sql.md) — PostgreSQL, migraciones
-4. [Secret Manager](04_secret_manager.md) — credenciales, API keys
-5. [Cloud Storage — Archivos media y static](05_cloud_storage.md) — subidas, CSS/JS
-6. [Dockerfile](06_dockerfile.md) — empaquetar la app como contenedor
-7. [Primer Despliegue](07_first_deploy.md) — despliegue manual para verificar que todo funciona
-8. [Dominio Personalizado y SSL](08_domain_ssl.md) — mycoolproject.cl, HTTPS
-9. [Workload Identity — Autenticación sin claves](09_workload_identity.md) — auth de GitHub a GCP sin claves
-10. [GitHub Actions — Pipeline CI/CD](10_github_actions.md) — automatiza todo lo anterior en cada push
-11. [Referencia Rápida](11_quick_reference.md) — todos los comandos en un solo lugar
+1. [Configuración del Proyecto GCP](01_gcp_setup.es.md) — proyecto, APIs, service account
+2. [Artifact Registry](02_artifact_registry.es.md) — donde se almacenan las imágenes Docker
+3. [Cloud SQL — Base de datos](03_cloud_sql.es.md) — PostgreSQL, migraciones
+4. [Secret Manager](04_secret_manager.es.md) — credenciales, API keys
+5. [Cloud Storage — Archivos media y static](05_cloud_storage.es.md) — subidas, CSS/JS
+6. [Dockerfile](06_dockerfile.es.md) — empaquetar la app como contenedor
+7. [Primer Despliegue](07_first_deploy.es.md) — despliegue manual para verificar que todo funciona
+8. [Dominio Personalizado y SSL](08_domain_ssl.es.md) — mycoolproject.cl, HTTPS
+9. [Workload Identity — Autenticación sin claves](09_workload_identity.es.md) — auth de GitHub a GCP sin claves
+10. [GitHub Actions — Pipeline CI/CD](10_github_actions.es.md) — automatiza todo lo anterior en cada push
+11. [Referencia Rápida](11_quick_reference.es.md) — todos los comandos en un solo lugar
+12. [Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md) — configuración de correo transaccional
 
 ### Flujo de desarrollo cotidiano (una vez desplegado)
 
@@ -105,14 +106,15 @@ Luego cuando estés listo para salir a producción (comienzan los costos):
 
 ## 📖 Capítulos
 
-- [01 — Configuración del Proyecto GCP](01_gcp_setup.md)
-- [02 — Artifact Registry](02_artifact_registry.md)
-- [03 — Cloud SQL (Base de Datos PostgreSQL)](03_cloud_sql.md)
-- [04 — Secret Manager](04_secret_manager.md)
-- [05 — Cloud Storage (Archivos media y static)](05_cloud_storage.md)
-- [06 — Dockerfile](06_dockerfile.md)
-- [07 — Primer Despliegue](07_first_deploy.md)
-- [08 — Dominio Personalizado y SSL](08_domain_ssl.md)
-- [09 — Workload Identity Federation (Autenticación sin claves en GitHub Actions)](09_workload_identity.md)
-- [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.md)
-- [11 — Referencia Rápida](11_quick_reference.md)
+- [01 — Configuración del Proyecto GCP](01_gcp_setup.es.md)
+- [02 — Artifact Registry](02_artifact_registry.es.md)
+- [03 — Cloud SQL (Base de Datos PostgreSQL)](03_cloud_sql.es.md)
+- [04 — Secret Manager](04_secret_manager.es.md)
+- [05 — Cloud Storage (Archivos media y static)](05_cloud_storage.es.md)
+- [06 — Dockerfile](06_dockerfile.es.md)
+- [07 — Primer Despliegue](07_first_deploy.es.md)
+- [08 — Dominio Personalizado y SSL](08_domain_ssl.es.md)
+- [09 — Workload Identity Federation (Autenticación sin claves en GitHub Actions)](09_workload_identity.es.md)
+- [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
+- [11 — Referencia Rápida](11_quick_reference.es.md)
+- [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)

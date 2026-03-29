@@ -190,7 +190,7 @@ Change the password immediately after first login.
 - [04 — Secret Manager](04_secret_manager.md)
 - [05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)
 - [06 — Dockerfile](06_dockerfile.md)
-- [07 — First Deploy](07_first_deploy.md)
+- 07 — First Deploy (Current chapter)
 - [08 — Custom Domain & SSL](08_domain_ssl.md)
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)

@@ -132,7 +132,7 @@ gcloud run services update mycoolproject \
 - [05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)
 - [06 — Dockerfile](06_dockerfile.md)
 - [07 — First Deploy](07_first_deploy.md)
-- [08 — Custom Domain & SSL](08_domain_ssl.md)
+- 08 — Custom Domain & SSL (Current chapter)
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)

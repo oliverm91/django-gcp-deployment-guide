@@ -204,6 +204,6 @@ Or re-run the previous commit's GitHub Actions workflow — it redeploys the ima
 - [07 — First Deploy](07_first_deploy.md)
 - [08 — Custom Domain & SSL](08_domain_ssl.md)
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
-- [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
+- 10 — GitHub Actions CI/CD Pipeline (Current chapter)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)

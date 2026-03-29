@@ -85,5 +85,5 @@ Google prefers you to use **Google Workspace** (which is a separate business pro
 - [08 — Custom Domain & SSL](08_domain_ssl.md)
 - [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
-- [11 — Reference Quick Base](11_quick_reference.md)
-- **12 — Bonus: Custom Email (@domain.cl)** (current chapter)
+- [11 — Quick Reference](11_quick_reference.md)
+- 12 — Bonus: Custom Email (@domain.cl) (Current chapter)

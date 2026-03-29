@@ -113,3 +113,21 @@ DJANGO_SETTINGS_MODULE=core.settings.prod uv run manage.py collectstatic --noinp
 curl https://mycoolproject.cl/health/
 # Expected: {"status": "ok"}
 ```
+
+---
+
+## 📖 Navigation
+
+- [01 — GCP Project Setup](01_gcp_setup.md)
+- [02 — Artifact Registry](02_artifact_registry.md)
+- [03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)
+- [04 — Secret Manager](04_secret_manager.md)
+- [05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)
+- [06 — Dockerfile](06_dockerfile.md)
+- [07 — First Deploy](07_first_deploy.md)
+- [08 — Custom Domain & SSL](08_domain_ssl.md)
+- [09 — Workload Identity Federation (Keyless GitHub Actions Auth)](09_workload_identity.md)
+- [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
+- 11 — Quick Reference (Current chapter)
+- [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
+```

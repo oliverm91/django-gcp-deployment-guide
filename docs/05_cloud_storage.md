@@ -149,7 +149,7 @@ In subsequent deploys, the GitHub Actions pipeline can run this automatically �
 - [02 — Artifact Registry](02_artifact_registry.md)
 - [03 — Cloud SQL (PostgreSQL Database)](03_cloud_sql.md)
 - [04 — Secret Manager](04_secret_manager.md)
-- [05 — Cloud Storage (Media & Static Files)](05_cloud_storage.md)
+- 05 — Cloud Storage (Media & Static Files) (Current chapter)
 - [06 — Dockerfile](06_dockerfile.md)
 - [07 — First Deploy](07_first_deploy.md)
 - [08 — Custom Domain & SSL](08_domain_ssl.md)
