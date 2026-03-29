@@ -1,12 +1,5 @@
 site_name: GCP Deployment Guide
-site_description: >
-  Master the art of deploying robust, production-ready Django applications to Google Cloud Platform with this comprehensive, step-by-step documentation.
-  This guide goes beyond a simple 'Hello World', diving into the architecture used by modern startups. You will learn to orchestrate containers on
-  Cloud Run, automate database migrations with serverless Cloud SQL, manage sensitive secrets with Secret Manager, and serve assets globally through
-  Cloud Storage. Every chapter is designed to bridge the gap between local development and a fully automated, multilingual, and secure production
-  environment. From domain mapping with SSL to keyless authentication using Workload Identity Federation, we cover every technical detail needed to
-  sleep soundly while your app scales. This resource provides the blueprint for a seamless CI/CD pipeline that eliminates manual errors and
-  accelerates your shipping speed. Ready to scale your Django backend to the cloud? Start your deployment journey today!
+site_description: Master production-ready Django deployments on Google Cloud Platform with this step-by-step CI/CD guide. Start scaling your app today!
 site_url: https://oliverm91.github.io/django-gcp-deployment-guide/
 site_author: "Oliver Mohr Bonometti"
 repo_name: oliverm91/django-gcp-deployment-guide
