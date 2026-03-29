@@ -3,6 +3,10 @@ description: "A quick reference guide and cheat sheet for every gcloud and deplo
 image: assets/social-banner.png
 
 ---
+# 11 — Quick Reference
+
+← [Previous: 10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
+
 ## Deploy manually (same steps as GitHub Actions)
 
 ```bash
