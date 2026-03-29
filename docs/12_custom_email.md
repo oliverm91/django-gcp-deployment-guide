@@ -4,7 +4,7 @@ image: assets/social-banner.png
 ---
 # 12 — Bonus: Custom Email (@domain.cl)
 
-← [Previous: 11 — Reference Quick Base](11_quick_reference.md)
+← [Previous: 11 — Quick Reference](11_quick_reference.md)
 
 Once you own your domain (e.g. `mycoolproject.cl`) from [Chapter 08](08_domain_ssl.md), you can create any email address under that name (e.g. `contact@mycoolproject.cl`). You don't "register" each individual address, but you do need to configure a service to manage them.
 

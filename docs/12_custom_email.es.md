@@ -4,7 +4,7 @@ image: assets/social-banner.png
 ---
 # 12 — Bonus: Email Personalizado (@dominio.cl)
 
-← [Anterior: 11 — Referencia Rápida](11_quick_reference.md)
+← [Anterior: 11 — Referencia Rápida](11_quick_reference.es.md)
 
 Una vez que tienes tu dominio (ej. `mycoolproject.cl`) del [Capítulo 08](08_domain_ssl.es.md), puedes crear cualquier dirección de correo bajo ese nombre (ej. `contacto@mycoolproject.cl`). No necesitas "registrar" cada dirección individualmente, pero sí necesitas configurar un servicio que las gestione.
 
