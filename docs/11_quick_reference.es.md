@@ -134,3 +134,4 @@ curl https://mycoolproject.cl/health/
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - 11 — Referencia Rápida (Capítulo actual)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.es.md)

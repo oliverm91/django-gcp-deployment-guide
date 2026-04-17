@@ -128,3 +128,4 @@ En esta configuración, las migraciones se ejecutan como un **Cloud Run Job** �
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.es.md)

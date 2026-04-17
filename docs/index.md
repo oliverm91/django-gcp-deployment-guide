@@ -53,6 +53,7 @@ The guide is ordered by **setup dependency** — each chapter sets up infrastruc
 10. [GitHub Actions — CI/CD Pipeline](10_github_actions.md) — automates all of the above on every push
 11. [Quick Reference](11_quick_reference.md) — all commands in one place
 12. [Bonus: Custom Email (@domain.cl)](12_custom_email.md) — transactional email configuration
+13. [Bonus: Django Tasks](13_django_tasks.md) — background job processing with Cloud Run Jobs
 
 ### Everyday development flow (once deployed)
 
@@ -118,3 +119,4 @@ Then when ready to go live (starts costing money):
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.md)

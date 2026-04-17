@@ -137,3 +137,4 @@ gcloud run services update mycoolproject \
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.md)

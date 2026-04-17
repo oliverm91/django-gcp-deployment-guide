@@ -53,6 +53,7 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 10. [GitHub Actions — Pipeline CI/CD](10_github_actions.es.md) — automatiza todo lo anterior en cada push
 11. [Referencia Rápida](11_quick_reference.es.md) — todos los comandos en un solo lugar
 12. [Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md) — configuración de correo transaccional
+13. [Bonus: Django Tasks](13_django_tasks.es.md) — procesamiento de tareas en segundo plano con Cloud Run Jobs
 
 ### Flujo de desarrollo cotidiano (una vez desplegado)
 
@@ -118,3 +119,4 @@ Luego cuando estés listo para salir a producción (comienzan los costos):
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.es.md)

@@ -5,3 +5,6 @@ site/
 .venv/
 env/
 venv/
+
+# Claude
+.claude/

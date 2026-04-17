@@ -207,3 +207,4 @@ Or re-run the previous commit's GitHub Actions workflow — it redeploys the ima
 - 10 — GitHub Actions CI/CD Pipeline (Current chapter)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.md)
