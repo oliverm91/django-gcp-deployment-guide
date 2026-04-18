@@ -191,6 +191,6 @@ Elige tu opción de worker:
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- 13 — Bonus: Django Tasks (Overview) *(capítulo actual)*
+- [13 — Bonus: Django Tasks](13_django_tasks.es.md) *(capítulo actual)*
   - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
   - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)
