@@ -49,12 +49,15 @@ gcloud iam workload-identity-pools create github-pool \
 
 # Creates an OIDC provider inside the pool that trusts GitHub Actions' JWT tokens.
 # attribute.repository maps the JWT's repo claim so we can restrict to specific repos.
-# This tells GCP: "accept short-lived tokens signed by GitHub's OIDC issuer".
+# --attribute-condition is REQUIRED by GCP on new providers (supply-chain hardening):
+# without it, tokens from any GitHub repo would be accepted by the provider.
+# Replace YOUR_ORG/YOUR_REPO below (e.g. "oliverm91/django-gcp-deployment-guide").
 gcloud iam workload-identity-pools providers create-oidc github-provider \
   --location=global \
   --workload-identity-pool=github-pool \
   --display-name="GitHub provider" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository == 'YOUR_ORG/YOUR_REPO'" \
   --issuer-uri="https://token.actions.githubusercontent.com"
 ```
 
@@ -62,6 +65,8 @@ Attribute mapping explained:
 
 - `google.subject=assertion.sub` — maps the JWT's `sub` field to GCP's subject
 - `attribute.repository=assertion.repository` — exposes the repo name as a GCP attribute so we can restrict to specific repos
+- `attribute.repository_owner` and `attribute.ref` — expose the owner and branch ref for optional narrower conditions (e.g. only `refs/heads/main`)
+- `--attribute-condition` — **required** on modern providers; rejects any token whose repo claim doesn't match the literal string. Without this, the provider would accept tokens from any GitHub repo in the world, leaving only the per-SA binding as defence. Google now rejects provider creation without a condition.
 
 ```bash
 # Grants workflows from YOUR_ORG/YOUR_REPO permission to impersonate mycoolproject-run-sa.
@@ -136,4 +141,6 @@ After this step, `gcloud` and `docker` commands in the workflow automatically us
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

@@ -88,7 +88,6 @@ Una service account es una identidad para un programa (no para una persona). En 
 # Usar una cuenta dedicada (no tu cuenta personal) limita el radio de daño si se compromete.
 # Resultado: visible en console.cloud.google.com/iam-admin/serviceaccounts
 gcloud iam service-accounts create mycoolproject-run-sa \
-
   --display-name="MyCoolProject Cloud Run SA"
 ```
 
@@ -105,21 +104,18 @@ SA="mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com"
 # Sin esto, el contenedor no puede acceder a la base de datos en tiempo de ejecución.
 # Resultado: visible en console.cloud.google.com/iam-admin/iam (filtrar por service account)
 gcloud projects add-iam-policy-binding mycoolproject-prod \
-
   --member="serviceAccount:$SA" \
   --role="roles/cloudsql.client"
 
 # Otorga permiso para leer secrets de Secret Manager.
 # Sin esto, Cloud Run no puede obtener DATABASE_URL, SECRET_KEY, etc. al arrancar.
 gcloud projects add-iam-policy-binding mycoolproject-prod \
-
   --member="serviceAccount:$SA" \
   --role="roles/secretmanager.secretAccessor"
 
 # Otorga permiso para leer y escribir objetos en los buckets de Cloud Storage.
 # Necesario para collectstatic (escritura) y para servir archivos media subidos por usuarios (lectura).
 gcloud projects add-iam-policy-binding mycoolproject-prod \
-
   --member="serviceAccount:$SA" \
   --role="roles/storage.objectAdmin"
 ```
@@ -152,4 +148,6 @@ Una vez obtenidas, deberás almacenarlas de forma segura siguiendo los pasos del
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

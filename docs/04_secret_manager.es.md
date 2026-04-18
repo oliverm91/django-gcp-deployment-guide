@@ -7,7 +7,7 @@ image: assets/social-banner.png
 
 ← [Anterior: 03 — Cloud SQL (Base de Datos PostgreSQL)](03_cloud_sql.md)
 
-> ✅ **Prácticamente gratuito.** El nivel gratuito incluye 6 versiones de secrets y 10.000 operaciones de acceso por mes. Este proyecto almacena ~11 secrets, lo que supera ligeramente las 6 versiones gratuitas — el costo es de $0.06/versión/mes, aproximadamente **$0.30/mes** en total. Cada arranque de contenedor accede a los secrets una vez; con tráfico bajo esto se mantiene dentro de la cuota gratuita de acceso.
+> ✅ **Prácticamente gratuito.** El nivel gratuito incluye 6 versiones de secrets y 10.000 operaciones de acceso por mes. Este proyecto almacena ~11 secrets, lo que supera las 6 versiones gratuitas — el costo es de $0.06/versión/mes, aproximadamente **$0.66/mes** en total (11 secrets × $0.06). Cada arranque de contenedor accede a los secrets una vez; con tráfico bajo esto se mantiene dentro de la cuota gratuita de acceso.
 
 ## ¿Qué es Secret Manager?
 
@@ -109,4 +109,6 @@ gcloud secrets versions access latest --secret=DATABASE_URL
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

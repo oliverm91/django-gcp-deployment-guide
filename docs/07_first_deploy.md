@@ -142,7 +142,6 @@ In subsequent deploys, GitHub Actions updates the job's image and re-runs it aut
 # Prints the public URL of the deployed service.
 # Paste it in your browser to confirm the site is reachable.
 gcloud run services describe mycoolproject \
-
   --region=southamerica-east1 \
   --format="value(status.url)"
 
@@ -161,21 +160,27 @@ Visit `<url>/health/` — should return `{"status": "ok"}`.
 You can't run `manage.py createsuperuser` interactively in Cloud Run. Instead, use the Cloud Run Jobs approach:
 
 ```bash
-# Creates a one-off job to run createsuperuser non-interactively.
-# --noinput reads email/password from env vars instead of prompting.
-# Use a temporary password here — change it immediately after first login at /admin/.
-gcloud run jobs create createsuperuser \
+# 1. Store a temporary password in Secret Manager (not in plain env vars — they're
+# visible in the Job definition and logs). Use a throwaway value; change it after login.
+echo -n "<temp-password>" | gcloud secrets create DJANGO_SUPERUSER_PASSWORD --data-file=-
 
+# 2. Creates a one-off job to run createsuperuser non-interactively.
+# --noinput reads email from env var and password from Secret Manager.
+gcloud run jobs create createsuperuser \
   --image=$IMAGE:latest \
   --region=southamerica-east1 \
   --service-account=mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com \
   --add-cloudsql-instances=mycoolproject-prod:southamerica-east1:mycoolproject-db \
-  --set-secrets=DATABASE_URL=DATABASE_URL:latest,SECRET_KEY=DJANGO_SECRET_KEY:latest \
-  --set-env-vars=DJANGO_SUPERUSER_EMAIL=admin@mycoolproject.cl,DJANGO_SUPERUSER_PASSWORD=<temp-password> \
+  --set-secrets=DATABASE_URL=DATABASE_URL:latest,SECRET_KEY=DJANGO_SECRET_KEY:latest,DJANGO_SUPERUSER_PASSWORD=DJANGO_SUPERUSER_PASSWORD:latest \
+  --set-env-vars=DJANGO_SUPERUSER_EMAIL=admin@mycoolproject.cl \
   --command="uv,run,manage.py,createsuperuser,--noinput"
 
-# Executes the job and waits. On success, log in at <service-url>/admin/ with the temp password.
+# 3. Executes the job and waits. On success, log in at <service-url>/admin/ with the temp password.
 gcloud run jobs execute createsuperuser --region=southamerica-east1 --wait
+
+# 4. Delete the job immediately — the env var DJANGO_SUPERUSER_EMAIL is still in the
+# Job definition. The temporary password is in Secret Manager; rotate or delete it.
+gcloud run jobs delete createsuperuser --region=southamerica-east1 --quiet
 ```
 
 Change the password immediately after first login.
@@ -196,4 +201,6 @@ Change the password immediately after first login.
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

@@ -53,7 +53,9 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 10. [GitHub Actions — Pipeline CI/CD](10_github_actions.es.md) — automatiza todo lo anterior en cada push
 11. [Referencia Rápida](11_quick_reference.es.md) — todos los comandos en un solo lugar
 12. [Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md) — configuración de correo transaccional
-13. [Bonus: Django Tasks](13_django_tasks.es.md) — procesamiento de tareas en segundo plano con Cloud Run Jobs
+13. [Bonus: Django Tasks](13_django_tasks.es.md) — procesamiento de tareas en segundo plano con django.tasks (incorporado en Django 6.0)
+    - [13.A — Cloud Tasks via HTTP (recomendado)](13_django_tasks_cloud_tasks.es.md)
+    - [13.B — db_worker embebido (alternativa)](13_django_tasks_embedded.es.md)
 
 ### Flujo de desarrollo cotidiano (una vez desplegado)
 
@@ -63,7 +65,7 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 
 ## Resumen de costos
 
-> **Las cuentas nuevas de GCP reciben $300 en créditos gratuitos** — suficiente para ejecutar todo durante meses antes de pagar algo.
+> **Las cuentas nuevas de GCP reciben $300 en créditos gratuitos** — suficiente para ejecutar todo durante meses antes de pagar algo. **Los créditos vencen 90 días después de la creación de la cuenta**, independientemente del uso.
 
 | Servicio | Nivel gratuito | Costo después del nivel gratuito |
 |---|---|---|
@@ -71,8 +73,10 @@ Los capítulos están ordenados por **dependencia de configuración** — cada u
 | Artifact Registry | 0.5 GB almacenamiento/mes | $0.10/GB/mes |
 | Secret Manager | 6 versiones + 10K accesos/mes | $0.06/versión/mes |
 | Cloud Storage | 5 GB/mes | ~$0.023/GB/mes |
+| Cloud Storage egreso | — | ~$0.08–0.12/GB (servir archivos a usuarios) |
 | GitHub Actions | 2.000 min/mes (repo privado) | $0.008/min |
 | Workload Identity | Ilimitado | Gratis |
+| Cloud Tasks | 1 M operaciones/mes | $0.40/M operaciones |
 | **Cloud SQL** | ❌ **Sin nivel gratuito** | **~$7–10/mes siempre activo** |
 | Dominio personalizado | — | ~$10–15/año en tu registrador |
 | Certificado SSL | Gratis (gestionado por GCP) | — |
@@ -119,4 +123,6 @@ Luego cuando estés listo para salir a producción (comienzan los costos):
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- 13 — Bonus: Django Tasks *(overview)*
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

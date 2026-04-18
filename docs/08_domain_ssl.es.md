@@ -121,6 +121,32 @@ gcloud run services update mycoolproject \
 
 `ALLOWED_HOSTS` es la configuración de seguridad de Django que rechaza solicitudes con un encabezado `Host` no reconocido — previene ataques de encabezado HTTP Host.
 
+## Actualizar la configuración de Django para el dominio personalizado
+
+Django 6.0 necesita configuraciones adicionales para funcionar correctamente detrás de un proxy reverso (Cloud Run actúa como uno). Sin ellas, cada POST desde el sitio de producción devuelve **403 CSRF verification failed**:
+
+```python
+# web/core/settings/prod.py
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mycoolproject.cl",
+    "https://www.mycoolproject.cl",
+]
+
+# Le dice a Django que está detrás de un proxy para que lea los headers X-Forwarded-*
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
+# Forzar HTTPS — redirigir HTTP → HTTPS en producción
+SECURE_SSL_REDIRECT = True
+
+# Cookies seguras (requiere HTTPS)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+```
+
+Aplícalas en `prod.py`, haz commit y sube para disparar un nuevo despliegue.
+
 ---
 
 ## 📖 Navegación
@@ -137,4 +163,6 @@ gcloud run services update mycoolproject \
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

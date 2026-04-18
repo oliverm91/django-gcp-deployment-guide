@@ -23,9 +23,9 @@ Crea `Dockerfile` en el directorio raíz del proyecto:
 
 ```dockerfile
 # ── Imagen base ────────────────────────────────────────────────────────────────
-# python:3.12-slim es una imagen Debian mínima con Python 3.12.
+# python:3.13-slim — Django 6.0 requiere Python 3.12+; 3.13 da margen.
 # "slim" significa sin herramientas de compilación, compiladores ni documentación — imagen más pequeña.
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # ── Instalar uv ───────────────────────────────────────────────────────────────
 # uv es el gestor de paquetes que usa este proyecto en lugar de pip.
@@ -59,18 +59,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # DJANGO_SETTINGS_MODULE: le indica a Django que use la configuración de prod.py
 # PORT: Cloud Run inyecta esto; Gunicorn lo lee
 
-EXPOSE 8080
+# ── Usuario sin permisos de root ──────────────────────────────────────────────
+# Ejecutar como root es innecesario y amplía el radio de daño si se compromete.
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
+USER appuser
 
 # ── Comando de inicio ─────────────────────────────────────────────────────────
-# Gunicorn es un servidor WSGI de grado de producción. Ejecuta la aplicación wsgi.py de Django.
-# Gunicorn debe estar en tu archivo uv.lock
-# El servidor de desarrollo incorporado de Django (manage.py runserver) NUNCA debe usarse en producción.
-CMD ["uv", "run", "gunicorn", \
-     "--bind", "0.0.0.0:8080", \
-     "--workers", "2", \
-     "--timeout", "60", \
-     "--log-file", "-", \
-     "core.wsgi"]
+# --timeout 60: mata workers que tarden más de 60 s.
+# --log-file -: escribe logs en stdout para que Cloud Logging los capture.
+# Usar exec asegura que Gunicorn sea PID 1 — el SIGTERM de Cloud Run le llega
+# directamente, evitando apagados abruptos y solicitudes perdidas durante despliegues.
+CMD ["sh", "-c", "exec gunicorn core.wsgi:application \
+    --bind 0.0.0.0:8080 \
+    --workers 2 \
+    --timeout 60 \
+    --log-file -"]
 ```
 
 Opciones de Gunicorn:
@@ -162,4 +165,6 @@ Después del primer despliegue manual, GitHub Actions maneja el build y push aut
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)
