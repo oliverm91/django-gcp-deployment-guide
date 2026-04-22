@@ -9,7 +9,7 @@ image: assets/social-banner.png
 
 > 💰 **Cuesta dinero — configúralo de último, justo antes de salir a producción.**
 >
-> Cloud SQL **no tiene nivel gratuito**. La instancia más pequeña (`db-f1-micro`) cuesta aproximadamente **$7–10/mes** y el cobro comienza en el momento en que la creas, sin importar si la app está activa o no. Pausar la instancia detiene el cobro de cómputo, pero sigue cobrando por almacenamiento.
+> Cloud SQL **no tiene nivel gratuito**. La instancia más pequeña (`db-f1-micro`) cuesta aproximadamente **$7–10/mes** y el cobro comienza en el momento en que la creas, sin importar si la app está activa o no. Almacenamiento de disco y backups se cobran por separado además del costo de cómputo.
 >
 > **Recomendado:** completa todos los demás capítulos primero. Crea la instancia de Cloud SQL solo cuando estés listo para desplegar y salir a producción, para minimizar el gasto en inactividad.
 
@@ -43,12 +43,16 @@ gcloud sql instances create mycoolproject-db \
   --region=southamerica-east1 \
   --storage-auto-increase \
   --backup-start-time=03:00 \
-  --retained-backups-count=7
+  --retained-backups-count=7 \
+  --deletion-protection \
+  --edition=ENTERPRISE
 ```
 
 Opciones explicadas:
 
 - `--tier=db-f1-micro` — instancia más pequeña, 0.6 GB de RAM (~$7/mes). Suficiente para tráfico inicial.
+- `--deletion-protection` — previene eliminación accidental con `gcloud sql instances delete`. Alterna con `--no-deletion-protection` cuando quieras eliminar realmente.
+- `--edition=ENTERPRISE` — requerido en proyectos nuevos; `db-f1-micro` se ejecuta en la infraestructura legacy shared-core dentro de la edición Enterprise.
 - `--storage-auto-increase` — el disco crece automáticamente a medida que crecen los datos.
 - `--backup-start-time=03:00` — backup automático diario a las 3 AM UTC.
 - `--retained-backups-count=7` — conserva 7 días de backups para recuperación a un punto en el tiempo.
@@ -128,4 +132,6 @@ En esta configuración, las migraciones se ejecutan como un **Cloud Run Job** �
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

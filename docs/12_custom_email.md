@@ -88,3 +88,5 @@ Google prefers you to use **Google Workspace** (which is a separate business pro
 - [11 — Quick Reference](11_quick_reference.md)
 - 12 — Bonus: Custom Email (@domain.cl) (Current chapter)
 - [13 — Bonus: Django Tasks](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

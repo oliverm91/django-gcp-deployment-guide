@@ -49,12 +49,15 @@ gcloud iam workload-identity-pools create github-pool \
 
 # Crea un proveedor OIDC dentro del pool que confíe en los tokens JWT de GitHub Actions.
 # attribute.repository mapea el claim de repo del JWT para poder restringir a repos específicos.
-# Le dice a GCP: "acepta tokens de corta duración firmados por el emisor OIDC de GitHub".
+# --attribute-condition es REQUERIDO por GCP en proveedores nuevos (fortalecimiento de cadena de suministro):
+# sin él, tokens de cualquier repo de GitHub serían aceptados por el proveedor.
+# Reemplaza TU_ORG/TU_REPO abajo (por ejemplo, "oliverm91/django-gcp-deployment-guide").
 gcloud iam workload-identity-pools providers create-oidc github-provider \
   --location=global \
   --workload-identity-pool=github-pool \
   --display-name="GitHub provider" \
-  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository == 'TU_ORG/TU_REPO'" \
   --issuer-uri="https://token.actions.githubusercontent.com"
 ```
 
@@ -62,6 +65,8 @@ Explicación del mapeo de atributos:
 
 - `google.subject=assertion.sub` — mapea el campo `sub` del JWT al sujeto de GCP
 - `attribute.repository=assertion.repository` — expone el nombre del repo como atributo de GCP para poder restringir a repos específicos
+- `attribute.repository_owner` y `attribute.ref` — exponen el owner y la rama para condiciones más estrictas (por ejemplo, solo `refs/heads/main`)
+- `--attribute-condition` — **requerido** en proveedores modernos; rechaza cualquier token cuyo claim de repo no coincida con el string literal. Sin esto, el proveedor aceptaría tokens de cualquier repo de GitHub del mundo, dejando solo el binding por SA como defensa. Google ahora rechaza la creación de proveedores sin una condición.
 
 ```bash
 # Otorga a los workflows de TU_ORG/TU_REPO permiso para suplantar a mycoolproject-run-sa.
@@ -136,4 +141,6 @@ Después de este paso, los comandos `gcloud` y `docker` en el workflow usan auto
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

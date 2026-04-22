@@ -23,9 +23,9 @@ Create `Dockerfile` at project root directory:
 
 ```dockerfile
 # ── Base image ────────────────────────────────────────────────────────────────
-# python:3.12-slim is a minimal Debian image with Python 3.12.
+# python:3.13-slim — Django 6.0 requires Python 3.12+; 3.13 gives headroom.
 # "slim" means no build tools, compilers, or docs — smaller image size.
-FROM python:3.12-slim
+FROM python:3.13-slim
 
 # ── Install uv ───────────────────────────────────────────────────────────────
 # uv is the package manager this project uses instead of pip.
@@ -59,18 +59,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # DJANGO_SETTINGS_MODULE: tells Django to use prod.py settings
 # PORT: Cloud Run injects this; Gunicorn reads it
 
-EXPOSE 8080
+# ── Non-root user ──────────────────────────────────────────────────────────────
+# Running as root is unnecessary and widens the blast radius if compromised.
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
+USER appuser
 
 # ── Start command ─────────────────────────────────────────────────────────────
-# Gunicorn is a production-grade WSGI server. It runs Django's wsgi.py application.
-# Gunicorn must be in your uv.lock file
-# Django's built-in dev server (manage.py runserver) must NEVER be used in prod.
-CMD ["uv", "run", "gunicorn", \
-     "--bind", "0.0.0.0:8080", \
-     "--workers", "2", \
-     "--timeout", "60", \
-     "--log-file", "-", \
-     "core.wsgi"]
+# --single-threaded is removed so GUnicorn uses multiple workers.
+# --timeout 60: kill workers that hang longer than 60 s.
+# --log-file -: write logs to stdout so Cloud Logging captures them.
+# Using exec ensures GUnicorn is PID 1 — Cloud Run's SIGTERM reaches it cleanly,
+# preventing ungraceful shutdowns and dropped requests during rolling deploys.
+CMD ["sh", "-c", "exec gunicorn core.wsgi:application \
+    --bind 0.0.0.0:8080 \
+    --workers 2 \
+    --timeout 60 \
+    --log-file -"]
 ```
 
 Gunicorn options:
@@ -162,4 +166,6 @@ After the first manual deploy, GitHub Actions handles build and push automatical
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

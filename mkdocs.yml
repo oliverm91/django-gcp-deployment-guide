@@ -12,6 +12,7 @@ theme:
   logo: assets/logo.svg
   features:
     - navigation.sections
+    - navigation.expand
     - navigation.top
     - search.suggest
     - search.highlight

@@ -43,12 +43,16 @@ gcloud sql instances create mycoolproject-db \
   --region=southamerica-east1 \
   --storage-auto-increase \
   --backup-start-time=03:00 \
-  --retained-backups-count=7
+  --retained-backups-count=7 \
+  --deletion-protection \
+  --edition=ENTERPRISE
 ```
 
 Options explained:
 
 - `--tier=db-f1-micro` — smallest instance, 0.6 GB RAM (~$7/mo). Sufficient for early traffic.
+- `--deletion-protection` — prevents accidental deletion with `gcloud sql instances delete`. Toggle with `--no-deletion-protection` when you actually want to delete.
+- `--edition=ENTERPRISE` — required on new projects; `db-f1-micro` runs on the legacy shared-core infrastructure within Enterprise edition.
 - `--storage-auto-increase` — disk grows automatically as data grows.
 - `--backup-start-time=03:00` — daily automatic backup at 3 AM UTC.
 - `--retained-backups-count=7` — keeps 7 days of backups for point-in-time recovery.
@@ -128,4 +132,6 @@ In this setup, migrations run as a **Cloud Run Job** — a one-off container exe
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

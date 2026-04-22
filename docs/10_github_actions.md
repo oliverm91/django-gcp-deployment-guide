@@ -37,6 +37,10 @@ env:
   REGION: southamerica-east1
   IMAGE: southamerica-east1-docker.pkg.dev/mycoolproject-prod/mycoolproject-repo/app
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   # ── Job 1: test ──────────────────────────────────────────────────────────────
   # Runs on every push and PR. Blocks deploy if tests fail.
@@ -48,8 +52,7 @@ jobs:
 
       - uses: astral-sh/setup-uv@v4
         with:
-          working-directory: web
-        # Installs uv (the package manager) on the runner
+          enable-cache: true
 
       - name: Install dependencies
         run: cd web && uv sync --frozen
@@ -57,7 +60,7 @@ jobs:
         # --frozen: fail if lockfile is out of date
 
       - name: Run tests
-        run: cd web && uv run manage.py test web/tests --settings=core.settings.test
+        run: cd web && uv run manage.py test tests --settings=core.settings.test
         # Runs the Django test suite using SQLite in-memory (no DB needed)
         env:
           SECRET_KEY: ci-secret-not-real
@@ -90,19 +93,19 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
-      # Build the Docker image with two tags:
+      # Build and push the Docker image with two tags:
       # - :latest (always points to newest)
       # - :<git-sha> (unique per commit — enables precise rollbacks)
-      - name: Build image
-        run: |
-          docker build \
-            -t ${{ env.IMAGE }}:${{ github.sha }} \
-            -t ${{ env.IMAGE }}:latest \
-            .
-
-      # Push both tags to Artifact Registry
-      - name: Push image
-        run: docker push --all-tags ${{ env.IMAGE }}
+      # Uses GitHub Actions cache so repeated builds skip unchanged layers.
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # Update the migrate job to use the new image, then run it
       # This applies any new database migrations before traffic hits the new code
@@ -207,4 +210,6 @@ Or re-run the previous commit's GitHub Actions workflow — it redeploys the ima
 - 10 — GitHub Actions CI/CD Pipeline (Current chapter)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)

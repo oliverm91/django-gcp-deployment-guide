@@ -37,6 +37,10 @@ env:
   REGION: southamerica-east1
   IMAGE: southamerica-east1-docker.pkg.dev/mycoolproject-prod/mycoolproject-repo/app
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   # ── Job 1: test ──────────────────────────────────────────────────────────────
   # Se ejecuta en cada push y PR. Bloquea el despliegue si los tests fallan.
@@ -48,16 +52,13 @@ jobs:
 
       - uses: astral-sh/setup-uv@v4
         with:
-          working-directory: web
-        # Instala uv (el gestor de paquetes) en el runner
+          enable-cache: true
 
       - name: Instalar dependencias
         run: cd web && uv sync --frozen
-        # Instala todas las dependencias Python desde uv.lock
-        # --frozen: falla si el lockfile está desactualizado
 
       - name: Ejecutar tests
-        run: cd web && uv run manage.py test web/tests --settings=core.settings.test
+        run: cd web && uv run manage.py test tests --settings=core.settings.test
         # Ejecuta la suite de tests de Django usando SQLite en memoria (no se necesita BD)
         env:
           SECRET_KEY: ci-secret-not-real
@@ -90,19 +91,19 @@ jobs:
       - name: Configurar Docker
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
-      # Construir la imagen Docker con dos tags:
+      # Construir y subir la imagen Docker con dos tags:
       # - :latest (siempre apunta al más reciente)
       # - :<git-sha> (único por commit — permite rollbacks precisos)
-      - name: Construir imagen
-        run: |
-          docker build \
-            -t ${{ env.IMAGE }}:${{ github.sha }} \
-            -t ${{ env.IMAGE }}:latest \
-            .
-
-      # Subir ambos tags a Artifact Registry
-      - name: Subir imagen
-        run: docker push --all-tags ${{ env.IMAGE }}
+      # Usa caché de GitHub Actions para que builds repetidos omitan capas sin cambios.
+      - name: Construir y subir imagen
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # Actualizar el job de migración para usar la nueva imagen, luego ejecutarlo
       # Esto aplica cualquier nueva migración de base de datos antes de que el tráfico llegue al nuevo código
@@ -207,4 +208,6 @@ O vuelve a ejecutar el workflow de GitHub Actions del commit anterior — redesp
 - 10 — Pipeline CI/CD con GitHub Actions (Capítulo actual)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

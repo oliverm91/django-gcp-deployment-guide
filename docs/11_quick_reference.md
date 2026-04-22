@@ -134,5 +134,7 @@ curl https://mycoolproject.cl/health/
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - 11 — Quick Reference (Current chapter)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.md)
+  - [13.B — Embedded db_worker](13_django_tasks_embedded.md)
 ```

@@ -37,13 +37,19 @@ Ejecuta en tu **terminal local**:
 gsutil mb -l southamerica-east1 gs://mycoolproject-media
 gsutil mb -l southamerica-east1 gs://mycoolproject-static
 
-# Otorga acceso de lectura público a los archivos static (CSS, JS, íconos).
-# Sin esto, los navegadores recibirían un 403 al cargar las hojas de estilo del sitio.
+# ── Bucket de static (público) ─────────────────────────────────────────────────
+# Otorga acceso de lectura público para que los navegadores puedan cargar CSS/JS directamente.
 gsutil iam ch allUsers:objectViewer gs://mycoolproject-static
 
-# Otorga acceso de lectura público a los archivos media (imágenes de publicaciones, avatares subidos por usuarios).
-# Sin esto, las imágenes subidas no se mostrarían en las publicaciones.
-gsutil iam ch allUsers:objectViewer gs://mycoolproject-media
+# ── Bucket de media (privado — ¡importante!) ─────────────────────────────────
+# mycoolproject-media se mantiene PRIVADO. Servir subidas de usuarios públicamente
+# es un riesgo de privacidad — archivos subidos (avatares, imágenes de publicaciones)
+# no deben ser globalmente legibles. En su lugar, Django los sirve via signed URLs.
+gsutil uniform_bucket_level_access set on gs://mycoolproject-media
+
+# Otorga a la service account de Cloud Run permiso para generar signed URLs.
+# Sin esto, Django no puede crear enlaces públicos temporales para archivos media.
+gsutil iam ch serviceAccount:mycoolproject-run-sa@mycoolproject-prod.iam.gserviceaccount.com:objectAdmin gs://mycoolproject-media
 ```
 
 > `gsutil` es parte del CLI de `gcloud`.
@@ -92,7 +98,13 @@ STORAGES = {
 
 GS_PROJECT_ID = "mycoolproject-prod"
 STATIC_URL = "https://storage.googleapis.com/mycoolproject-static/"
-MEDIA_URL  = "https://storage.googleapis.com/mycoolproject-media/"
+MEDIA_URL  = None   # los archivos media NO se sirven desde una URL pública — ver abajo
+
+# Servir archivos media via signed URLs (bucket privado)
+# MEDIA_URL se deja en None; Django genera signed URLs de corta duración
+# que permiten acceso público temporal a un archivo específico sin hacerlo globalmente legible.
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_MEDIA_BUCKET_NAME = "mycoolproject-media"
 ```
 
 `cache_control: public, max-age=31536000` le indica a los navegadores que almacenen en caché los archivos static por 1 año — dado que `collectstatic` genera nombres de archivo con hash de contenido, los cachés obsoletos nunca son un problema.
@@ -157,4 +169,6 @@ En despliegues posteriores, el pipeline de GitHub Actions puede ejecutar esto au
 - [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
 - [11 — Referencia Rápida](11_quick_reference.es.md)
 - [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md)
+- [13 — Bonus: Django Tasks (Overview)](13_django_tasks.es.md)
+  - [13.A — Cloud Tasks via HTTP](13_django_tasks_cloud_tasks.es.md)
+  - [13.B — db_worker embebido](13_django_tasks_embedded.es.md)

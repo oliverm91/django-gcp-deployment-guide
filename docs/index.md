@@ -53,7 +53,9 @@ The guide is ordered by **setup dependency** — each chapter sets up infrastruc
 10. [GitHub Actions — CI/CD Pipeline](10_github_actions.md) — automates all of the above on every push
 11. [Quick Reference](11_quick_reference.md) — all commands in one place
 12. [Bonus: Custom Email (@domain.cl)](12_custom_email.md) — transactional email configuration
-13. [Bonus: Django Tasks](13_django_tasks.md) — background job processing with Cloud Run Jobs
+13. [Bonus: Django Tasks](13_django_tasks.md) — background job processing with django.tasks (Django 6.0 built-in)
+    - [13.A — Cloud Tasks via HTTP (recommended)](13_django_tasks_cloud_tasks.md)
+    - [13.B — Embedded db_worker (alternative)](13_django_tasks_embedded.md)
 
 ### Everyday development flow (once deployed)
 
@@ -63,7 +65,7 @@ The guide is ordered by **setup dependency** — each chapter sets up infrastruc
 
 ## Cost overview
 
-> **New GCP accounts get $300 free credits** — enough to run everything for months before paying anything.
+> **New GCP accounts get $300 free credits** — enough to run everything for months before paying anything. **Credits expire 90 days after account creation**, regardless of usage.
 
 | Service | Free tier | Cost after free tier |
 |---|---|---|
@@ -71,8 +73,10 @@ The guide is ordered by **setup dependency** — each chapter sets up infrastruc
 | Artifact Registry | 0.5 GB storage/month | $0.10/GB/month |
 | Secret Manager | 6 secret versions + 10K accesses/month | $0.06/version/month |
 | Cloud Storage | 5 GB/month | ~$0.023/GB/month |
+| Cloud Storage egress | — | ~$0.08–0.12/GB (serving files to users) |
 | GitHub Actions | 2,000 min/month (private repo) | $0.008/min |
 | Workload Identity | Unlimited | Free |
+| Cloud Tasks | 1 M operations/month | $0.40/M operations |
 | **Cloud SQL** | ❌ **No free tier** | **~$7–10/month always running** |
 | Custom domain | — | ~$10–15/year at your registrar |
 | SSL certificate | Free (managed by GCP) | — |
@@ -119,4 +123,4 @@ Then when ready to go live (starts costing money):
 - [10 — GitHub Actions CI/CD Pipeline](10_github_actions.md)
 - [11 — Quick Reference](11_quick_reference.md)
 - [12 — Bonus: Custom Email (@domain.cl)](12_custom_email.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.md)
+- [13 — Bonus: Django Tasks](13_django_tasks.md) — background job processing with django.tasks (Django 6.0 built-in)
