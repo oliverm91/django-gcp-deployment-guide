@@ -1,9 +1,9 @@
-site_name: GCP Deployment Guide
+site_name: Terraform Deployment Guide
 site_description: Master production-ready Django deployments on Google Cloud Platform with this step-by-step CI/CD guide. Start scaling your app today!
-site_url: https://oliverm91.github.io/django-gcp-deployment-guide/
+site_url: https://oliverm91.github.io/django-terraform-deployment-guide/
 site_author: "Oliver Mohr Bonometti"
-repo_name: oliverm91/django-gcp-deployment-guide
-repo_url: https://github.com/oliverm91/django-gcp-deployment-guide
+repo_name: oliverm91/django-terraform-deployment-guide
+repo_url: https://github.com/oliverm91/django-terraform-deployment-guide
 
 theme:
   name: material
