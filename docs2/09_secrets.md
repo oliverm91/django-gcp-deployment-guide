@@ -5,7 +5,7 @@ image: assets/social-banner.png
 
 # 09 — Secret Manager
 
-← [Previous: 08 — PlanetScale Database](08_planetscale_db.md)
+← [Previous: 07 — Artifact Registry](07_artifact_registry.md)
 
 Secret Manager stores sensitive values like passwords, API keys, and connection strings. In this chapter, we'll create secrets with Terraform and store the actual values via the CLI.
 
@@ -216,7 +216,6 @@ The `latest` tag always points to the newest version. Cloud Run picks up the new
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - [06 — GCP Project & APIs](06_gcp_project.md)
 - [07 — Artifact Registry](07_artifact_registry.md)
-- [08 — PlanetScale Database](08_planetscale_db.md)
 - 09 — Secret Manager (Current chapter)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)

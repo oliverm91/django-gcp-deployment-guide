@@ -174,7 +174,7 @@ This opens a local proxy so you can connect to the PlanetScale branch as if it w
 
 ---
 
-## Connecting from Cloud Run
+## Connecting from Django
 
 ### The connection string format
 
@@ -186,7 +186,7 @@ postgres://user:password@aws.connect.psdb.cloud/db?sslmode=require
 
 ### Store in Secret Manager
 
-Store this in Secret Manager (we'll do this in the Terraform section):
+Store this in Secret Manager using the gcloud CLI:
 
 ```bash
 echo -n "postgres://user:password@aws.connect.psdb.cloud/mycoolproject?sslmode=require" \
@@ -199,12 +199,16 @@ Django reads this via `django-environ`:
 
 ```python
 # web/core/settings/prod.py
+import environ
+
+env = environ.Env()
+
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='...')
+    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
 }
 ```
 
-No special PlanetScale configuration needed — it works with standard Postgres drivers.
+The `DATABASE_URL` environment variable is injected from Secret Manager at container runtime. No special PlanetScale configuration needed — it works with standard Postgres drivers.
 
 ---
 
@@ -234,13 +238,13 @@ For this guide, we use PlanetScale because of the branching workflow which pairs
 
 ---
 
-## What we'll set up in Terraform
+## Summary: what we've done
 
-After creating the PlanetScale database (via their dashboard), we'll:
+- Created a PlanetScale database (via dashboard or CLI)
+- Stored the connection string in Secret Manager
+- Configured Django to read `DATABASE_URL` from the environment
 
-1. Store the connection string in Secret Manager (via Terraform)
-2. Configure Django to use it
-3. Set up a serverless VPC connection so Cloud Run can connect to PlanetScale without going over the public internet (this is created in Terraform)
+The Terraform infrastructure (Artifact Registry, Cloud Run, IAM, other secrets) is set up in the next chapters.
 
 ---
 
@@ -255,7 +259,6 @@ After creating the PlanetScale database (via their dashboard), we'll:
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - [06 — GCP Project & APIs](06_gcp_project.md)
 - [07 — Artifact Registry](07_artifact_registry.md)
-- [08 — PlanetScale Database](08_planetscale_db.md)
 - [09 — Secret Manager](09_secrets.md)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)

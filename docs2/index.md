@@ -82,10 +82,9 @@ The guide is structured in three parts:
 5. [Project Setup & Terraform State](05_project_setup.md)
 6. [Cloud Project & APIs](06_gcp_project.md)
 7. [Container Registry](07_artifact_registry.md)
-8. [Managed Postgres Database](08_planetscale_db.md)
-9. [Secrets Management](09_secrets.md)
-10. [Object Storage](10_storage.md)
-11. [Service Accounts & IAM](11_iam.md)
+8. [Secrets Management](09_secrets.md)
+9. [Object Storage](10_storage.md)
+10. [Service Accounts & IAM](11_iam.md)
 12. [Container Platform](12_cloud_run.md)
 13. [Background Jobs & Scheduler](13_tasks.md)
 

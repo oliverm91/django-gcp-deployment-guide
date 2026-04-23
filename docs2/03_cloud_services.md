@@ -298,7 +298,7 @@ Cloud Run handles HTTPS and routing automatically. We don't need a separate load
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - [06 — GCP Project & APIs](06_gcp_project.md)
 - [07 — Artifact Registry](07_artifact_registry.md)
-- [08 — PlanetScale Database](08_planetscale_db.md)
+- [08 — Secrets Management](09_secrets.md)
 - [09 — Secret Manager](09_secrets.md)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)

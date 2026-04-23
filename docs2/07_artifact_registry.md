@@ -175,7 +175,7 @@ output "artifact_registry_url" {
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - [06 — GCP Project & APIs](06_gcp_project.md)
 - 07 — Artifact Registry (Current chapter)
-- [08 — PlanetScale Database](08_planetscale_db.md)
+- [08 — Secrets Management](09_secrets.md)
 - [09 — Secret Manager](09_secrets.md)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)

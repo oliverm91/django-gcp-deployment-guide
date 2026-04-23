@@ -48,18 +48,9 @@ provider "google" {
 
 This tells Terraform: "I'm working with GCP, project is `my-project`, default region is `southamerica-east1`."
 
-### Why PlanetScale provider?
+### PlanetScale: managed manually
 
-The PlanetScale provider is optional — you could create branches and credentials via the dashboard or CLI and manage them manually. If you do that, you just remember to create a branch when needed and delete it when done.
-
-Using Terraform for branch management is helpful because:
-
-- **Version control** — branch lifecycle is documented in code, not scattered across people's dashboards
-- **Reviewability** — branch creation/deletion shows up in pull requests, so the team sees changes
-- **Reproducibility** — if someone accidentally deletes a branch, you can recreate it from the Terraform file
-- **Disaster recovery** — Terraform state shows exactly what branches existed, making recovery straightforward
-
-In this guide: the initial database is created manually (via dashboard or CLI), but branches and credentials are managed via Terraform.
+PlanetScale databases and branches are created and managed via the PlanetScale dashboard or CLI — not through Terraform. Terraform is used for all GCP infrastructure. The database connection string is stored in Secret Manager (created by Terraform) and the value is set manually.
 
 ### Resources
 
@@ -201,7 +192,7 @@ terraform --version
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - [06 — GCP Project & APIs](06_gcp_project.md)
 - [07 — Artifact Registry](07_artifact_registry.md)
-- [08 — PlanetScale Database](08_planetscale_db.md)
+- [08 — Secrets Management](09_secrets.md)
 - [09 — Secret Manager](09_secrets.md)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)

@@ -128,7 +128,7 @@ This approach makes API enablement part of your Terraform state — useful for r
 - [05 — Project Setup & Terraform State](05_project_setup.md)
 - 06 — GCP Project & APIs (Current chapter)
 - [07 — Artifact Registry](07_artifact_registry.md)
-- [08 — PlanetScale Database](08_planetscale_db.md)
+- [08 — Secrets Management](09_secrets.md)
 - [09 — Secret Manager](09_secrets.md)
 - [10 — Cloud Storage](10_storage.md)
 - [11 — Service Accounts & IAM](11_iam.md)
