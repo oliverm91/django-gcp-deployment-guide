@@ -1,4 +1,4 @@
-# Infrastructure as Code Deployment Guide
+# Django Infrastructure as Code Deployment Guide
 
 A battle-tested, step-by-step guide to deploying Django web applications using Terraform and cloud infrastructure. Examples use Google Cloud Platform, but the principles apply to any cloud provider.
 
