@@ -1,0 +1,2196 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprende cada servicio en la nube que usamos: qué hace, cómo encaja en la arquitectura y los conceptos clave para el despliegue.">
+      
+      
+        <meta name="author" content="Oliver Mohr Bonometti">
+      
+      
+        <link rel="canonical" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/03_cloud_services/">
+      
+      
+        <link rel="prev" href="../02_terraform_overview/">
+      
+      
+        <link rel="next" href="../04_planetscale/">
+      
+      
+        
+          <link rel="alternate" href="../../03_cloud_services/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>03 — Cloud Services Explained - Terraform Deployment Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+
+
+
+
+
+
+<meta property="og:title" content="03 — Cloud Services Explained - Terraform Deployment Guide" />
+<meta property="og:description" content="Master production-ready Django deployments on Google Cloud Platform with this step-by-step CI/CD guide. Start scaling your app today!" />
+<meta property="og:url" content="https://oliverm91.github.io/django-terraform-deployment-guide/es/03_cloud_services/" />
+<meta property="og:type" content="website" />
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="03 — Cloud Services Explained - Terraform Deployment Guide" />
+<meta name="twitter:description" content="Master production-ready Django deployments on Google Cloud Platform with this step-by-step CI/CD guide. Start scaling your app today!" />
+<meta name="twitter:image" content="https://oliverm91.github.io/django-gcp-deployment-guide/assets/social-banner.png" />
+
+<meta property="og:image" content="https://oliverm91.github.io/django-gcp-deployment-guide/assets/social-banner.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#03-servicios-en-la-nube-explicados" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="Terraform Deployment Guide" class="md-header__button md-logo" aria-label="Terraform Deployment Guide" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Terraform Deployment Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03 — Cloud Services Explained
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../03_cloud_services/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/oliverm91/django-terraform-deployment-guide" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    oliverm91/django-terraform-deployment-guide
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Terraform Deployment Guide" class="md-nav__button md-logo" aria-label="Terraform Deployment Guide" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    Terraform Deployment Guide
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/oliverm91/django-terraform-deployment-guide" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    oliverm91/django-terraform-deployment-guide
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 — Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_terraform_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 — Terraform Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 — Cloud Services Explained
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 — Cloud Services Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vista-general-de-la-plataforma-en-la-nube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista general de la plataforma en la nube
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Run
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-no-cloud-run-jobs-directamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué no Cloud Run Jobs directamente?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Scheduler
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Scheduler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-storage-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Storage (GCS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Storage (GCS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dos-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos buckets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nombres-de-imagenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nombres de imágenes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secret-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secret Manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secret Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-con-cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona con Cloud Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iam-gestion-de-identidad-y-acceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM (Gestión de Identidad y Acceso)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IAM (Gestión de Identidad y Acceso)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Accounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-no-usamos-y-por-que" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que NO usamos (y por qué)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lo que NO usamos (y por qué)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-gke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes (GKE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balanceador-de-carga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balanceador de carga
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navegacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegación
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_planetscale/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 — Database Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_project_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 — Project Setup & Terraform State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_gcp_project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 — GCP Project & APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_artifact_registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 — Artifact Registry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 — Secrets Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 — Cloud Storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_iam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 — Service Accounts & IAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_cloud_run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11 — Cloud Run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12 — Cloud Tasks & Scheduler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13 — Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_first_deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14 — First Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_domain_ssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 — Custom Domain & SSL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_wif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16 — Workload Identity Federation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_github_actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17 — GitHub Actions CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19_quick_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18 — Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vista-general-de-la-plataforma-en-la-nube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista general de la plataforma en la nube
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Run
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-no-cloud-run-jobs-directamente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Por qué no Cloud Run Jobs directamente?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Scheduler
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Scheduler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-storage-gcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Storage (GCS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Storage (GCS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dos-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dos buckets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artifact-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifact Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artifact Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-clave_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nombres-de-imagenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nombres de imágenes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secret-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secret Manager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secret Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-con-cloud-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona con Cloud Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#costo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iam-gestion-de-identidad-y-acceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM (Gestión de Identidad y Acceso)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IAM (Gestión de Identidad y Acceso)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-lo-usamos_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por qué lo usamos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Accounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-no-usamos-y-por-que" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que NO usamos (y por qué)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lo que NO usamos (y por qué)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloud-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud SQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-gke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes (GKE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#balanceador-de-carga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Balanceador de carga
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navegacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegación
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="03-servicios-en-la-nube-explicados">03 — Servicios en la nube explicados</h1>
+<p>← <a href="../02_terraform_overview/">Anterior: 02 — Visión general de Terraform</a></p>
+<p>Este capítulo explica cada servicio en la nube que usaremos. La guía implementa esta infraestructura en <strong>Google Cloud Platform (GCP)</strong>, pero los conceptos aplican a través de proveedores de nube.</p>
+<hr />
+<h2 id="vista-general-de-la-plataforma-en-la-nube">Vista general de la plataforma en la nube</h2>
+<p>Una plataforma en la nube proporciona cómputo, almacenamiento, bases de datos, redes y más — cada servicio es independiente y se gestiona a través de Terraform o la consola del proveedor.</p>
+<p>Usaremos un subconjunto de estos servicios. Repasemos cada uno.</p>
+<hr />
+<h2 id="cloud-run">Cloud Run</h2>
+<h3 id="que-es">Qué es</h3>
+<p>Cloud Run es una <strong>plataforma de contenedores sin servidor</strong>. Le das una imagen Docker y ejecuta un servicio que:
+- Inicia cuando llegan solicitudes
+- Escala a cero cuando está inactivo (sin costo)
+- Escala automáticamente bajo carga
+- Maneja HTTPS automáticamente
+- Te da una URL pública</p>
+<h3 id="por-que-lo-usamos">Por qué lo usamos</h3>
+<p>En lugar de gestionar VMs o clusters de Kubernetes, solo despliegas una imagen Docker y Cloud Run maneja todo lo demás. Es la forma más simple de ejecutar una aplicación web en producción en GCP.</p>
+<h3 id="conceptos-clave">Conceptos clave</h3>
+<ul>
+<li><strong>Service</strong> — la aplicación web en ejecución. Tiene una URL, historial de revisiones, división de tráfico.</li>
+<li><strong>Revision</strong> — una versión específica del servicio (creada en cada despliegue).</li>
+<li><strong>Container</strong> — una instancia en ejecución de tu imagen Docker.</li>
+<li><strong>Concurrency</strong> — cuántas solicitudes maneja cada contenedor simultáneamente.</li>
+</ul>
+<h3 id="costo">Costo</h3>
+<p>Nivel gratuito: 2 millones de solicitudes + 360K segundos de CPU GB por mes.
+Después de eso: ~$0.00004 por solicitud.</p>
+<p>Con <code>--min-instances=0</code> (escala a cero), no pagas nada cuando no hay tráfico.</p>
+<hr />
+<h2 id="cloud-tasks">Cloud Tasks</h2>
+<h3 id="que-es_1">Qué es</h3>
+<p>Cloud Tasks es una <strong>cola de tareas gestionada</strong>. Encolas un trabajo (una unidad de trabajo) y un worker lo recoge y procesa. Piénsalo como una lista de tareas para trabajo en segundo plano.</p>
+<h3 id="por-que-lo-usamos_1">Por qué lo usamos</h3>
+<p>Algunas operaciones son demasiado lentas o pesadas para ejecutar dentro de una solicitud web:
+- Envío de emails (puede tomar segundos)
+- Generación de PDFs o reportes
+- Procesamiento de imágenes
+- Llamadas a APIs externas que son lentas</p>
+<p>En lugar de hacer esperar al usuario, encolas el trabajo y respondes inmediatamente. El worker lo procesa en segundo plano.</p>
+<h3 id="conceptos-clave_1">Conceptos clave</h3>
+<ul>
+<li><strong>Queue</strong> — una cola nombrada que contiene tareas. Crearemos una llamada <code>default</code>.</li>
+<li><strong>Task</strong> — una unidad de trabajo (esencialmente una llamada a función con argumentos, serializada).</li>
+<li><strong>Worker</strong> — un Job separado de Cloud Run que extrae tareas de la cola y las procesa.</li>
+</ul>
+<h3 id="como-funciona">Cómo funciona</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Solicitud web → Django la recibe → Encola tarea a Cloud Tasks →
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Django responde inmediatamente (el usuario no espera) →
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Worker de Cloud Run Job recoge la tarea → Hace el trabajo
+</span></code></pre></div>
+<h3 id="por-que-no-cloud-run-jobs-directamente">¿Por qué no Cloud Run Jobs directamente?</h3>
+<p>Cloud Run Jobs se ejecutan una vez y terminan. Cloud Tasks proporciona:
+- <strong>Fiabilidad</strong> — si un worker falla, Cloud Tasks reintenta la tarea
+- <strong>Programación</strong> — las tareas de Cloud Tasks pueden programarse para ejecutarse en un momento específico (útil para recordatorios, trabajos por lotes)
+- <strong>Límite de tasa</strong> — previene que tus workers se vean abrumados
+- <strong>Gestión de cola</strong> — pausar, reanudar, purgar colas</p>
+<p>Cloud Run Jobs es lo que realmente <strong>ejecuta</strong> las tareas. Cloud Tasks es la <strong>cola</strong> que las contiene.</p>
+<hr />
+<h2 id="cloud-scheduler">Cloud Scheduler</h2>
+<h3 id="que-es_2">Qué es</h3>
+<p>Cloud Scheduler es un <strong>servicio cron</strong> — activa algo en un horario basado en tiempo.</p>
+<h3 id="por-que-lo-usamos_2">Por qué lo usamos</h3>
+<p>Necesitamos activar el worker de Cloud Tasks periódicamente. Cloud Scheduler puede hacer POST a un endpoint en un horario, lo que activa el worker para procesar cualquier tarea pendiente.</p>
+<p>Por ejemplo: "verificar cada minuto si hay tareas pendientes" o "enviar resumen diario a las 9am".</p>
+<h3 id="como-funciona_1">Cómo funciona</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Cloud Scheduler (cada minuto)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    │
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ▼
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>POST a la URL del Cloud Run Job → Worker despierta → Procesa tareas pendientes
+</span></code></pre></div>
+<p>Cloud Scheduler en sí es un mecanismo de activación — el trabajo real lo hacen los Cloud Run Jobs.</p>
+<hr />
+<h2 id="cloud-storage-gcs">Cloud Storage (GCS)</h2>
+<h3 id="que-es_3">Qué es</h3>
+<p>Cloud Storage es el <strong>almacenamiento de objetos</strong> de Google — como AWS S3. Los archivos se almacenan como objetos en buckets (espacios de nombres planos, no directorios). Es duradero, accesible globalmente y barato.</p>
+<h3 id="por-que-lo-usamos_3">Por qué lo usamos</h3>
+<p>Dos razones:</p>
+<ol>
+<li>
+<p><strong>Archivos estáticos</strong> — CSS, JavaScript, íconos. Estos se generan con <code>collectstatic</code> y se suben a un bucket de GCS. Los navegadores los cargan directamente desde GCS, no desde Django.</p>
+</li>
+<li>
+<p><strong>Archivos media</strong> — imágenes subidas por usuarios (avatares, fotos). Almacenadas en GCS, no en el sistema de archivos del contenedor (que se perdería si el contenedor se reinicia).</p>
+</li>
+</ol>
+<h3 id="conceptos-clave_2">Conceptos clave</h3>
+<ul>
+<li><strong>Bucket</strong> — un contenedor para objetos. Los nombres de bucket son únicos globalmente.</li>
+<li><strong>Object</strong> — un archivo almacenado en un bucket.</li>
+<li><strong>Acceso público</strong> — los buckets pueden ser públicos (cualquiera puede leer) o privados.</li>
+</ul>
+<h3 id="dos-buckets">Dos buckets</h3>
+<table>
+<thead>
+<tr>
+<th>Bucket</th>
+<th>Propósito</th>
+<th>Acceso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>my-project-static</code></td>
+<td>CSS, JS, íconos de <code>collectstatic</code></td>
+<td>Público</td>
+</tr>
+<tr>
+<td><code>my-project-media</code></td>
+<td>Subidas de usuarios (imágenes)</td>
+<td>Público</td>
+</tr>
+</tbody>
+</table>
+<p>El acceso público significa que los navegadores pueden cargar assets estáticos directamente desde GCS, evitando completamente a Django.</p>
+<hr />
+<h2 id="artifact-registry">Artifact Registry</h2>
+<h3 id="que-es_4">Qué es</h3>
+<p>Artifact Registry es el <strong>registro de contenedores privado</strong> de GCP — un lugar para almacenar imágenes Docker. Piénsalo como Docker Hub, pero dentro de tu proyecto de GCP y privado.</p>
+<h3 id="por-que-lo-usamos_4">Por qué lo usamos</h3>
+<p>Cuando GitHub Actions construye tu imagen Docker, necesita un lugar para almacenarla. Cloud Run extrae de aquí al desplegar. La imagen nunca sale de la red de GCP.</p>
+<h3 id="conceptos-clave_3">Conceptos clave</h3>
+<ul>
+<li><strong>Repository</strong> — una colección de imágenes relacionadas (tenemos una llamada <code>my-project-repo</code>)</li>
+<li><strong>Image</strong> — la imagen Docker real con una etiqueta (ej., <code>app:latest</code>, <code>app:&lt;git-sha&gt;</code>)</li>
+<li><strong>Tags</strong> — etiquetas como <code>latest</code> o <code>abc123</code> que apuntan a imágenes específicas</li>
+</ul>
+<h3 id="nombres-de-imagenes">Nombres de imágenes</h3>
+<p>Las imágenes en Artifact Registry se ven así:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>southamerica-east1-docker.pkg.dev/my-project/my-project-repo/app:latest
+</span></code></pre></div></p>
+<p>Desglose:
+- <code>southamerica-east1-docker.pkg.dev</code> — el host del registro
+- <code>my-project</code> — tu proyecto de GCP
+- <code>my-project-repo</code> — el nombre del repositorio
+- <code>app</code> — el nombre de la imagen
+- <code>latest</code> — la etiqueta</p>
+<hr />
+<h2 id="secret-manager">Secret Manager</h2>
+<h3 id="que-es_5">Qué es</h3>
+<p>Secret Manager almacena <strong>secretos</strong> — contraseñas, claves API, tokens, cualquier cosa sensible. Los secretos están encriptados en reposo y solo se desencriptan cuando se solicitan.</p>
+<h3 id="por-que-lo-usamos_5">Por qué lo usamos</h3>
+<p>No podemos hardcodear credenciales en el código ni ponerlas en archivos de entorno que se comprometen a git. Secret Manager proporciona:
+- Encriptación en reposo
+- Historial de versiones (revertir si es necesario)
+- Control de acceso vía IAM
+- Inyección en tiempo de ejecución en Cloud Run</p>
+<h3 id="como-funciona-con-cloud-run">Cómo funciona con Cloud Run</h3>
+<p>Al desplegar en Cloud Run, referencias secretos por nombre. Al iniciar el contenedor, Cloud Run obtiene los valores de los secretos y los inyecta como variables de entorno.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>--set-secrets<span class="o">=</span><span class="nv">DATABASE_URL</span><span class="o">=</span>DATABASE_URL:latest,SECRET_KEY<span class="o">=</span>SECRET_KEY:latest
+</span></code></pre></div>
+<p>Esto mapea el secreto de Secret Manager <code>DATABASE_URL</code> a la variable de entorno <code>DATABASE_URL</code> dentro del contenedor.</p>
+<h3 id="costo_1">Costo</h3>
+<p>Nivel gratuito: 6 versiones de secretos y 10,000 accesos por mes.
+Después de eso: $0.06 por versión por mes.</p>
+<hr />
+<h2 id="iam-gestion-de-identidad-y-acceso">IAM (Gestión de Identidad y Acceso)</h2>
+<h3 id="que-es_6">Qué es</h3>
+<p>IAM controla <strong>quién puede hacer qué</strong> en tu proyecto de GCP. Funciona con:
+- <strong>Members</strong> — usuarios, service accounts, grupos
+- <strong>Roles</strong> — conjuntos de permisos (como "puede leer buckets de storage")
+- <strong>Policies</strong> — adjuntar roles a miembros</p>
+<h3 id="por-que-lo-usamos_6">Por qué lo usamos</h3>
+<p>En lugar de dar a todos acceso de administrador, seguimos el principio de mínimo privilegio: dar a cada identidad solo los permisos que necesita.</p>
+<h3 id="service-accounts">Service Accounts</h3>
+<p>Una <strong>service account</strong> es una identidad para un programa (no para una persona). Nuestros contenedores de Cloud Run se ejecutan como una service account, que tiene permisos para:
+- Leer secretos de Secret Manager
+- Leer/escribir objetos en Cloud Storage
+- Conectarse a PlanetScale (vía cadena de conexión — no es específico de GCP)</p>
+<h3 id="ejemplo">Ejemplo</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Dar a la service account de Cloud Run permiso para leer secretos</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>gcloud<span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>--member<span class="o">=</span><span class="s2">&quot;serviceAccount:my-run-sa@my-project.iam.gserviceaccount.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>--role<span class="o">=</span><span class="s2">&quot;roles/secretmanager.secretAccessor&quot;</span>
+</span></code></pre></div>
+<p>En Terraform:</p>
+<div class="language-hcl highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;google_project_iam_member&quot;</span><span class="w"> </span><span class="nv">&quot;run_secret_accessor&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="na">project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.project_id</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="na">role</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;roles/secretmanager.secretAccessor&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="na">member</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;serviceAccount:${google_service_account.run.email}&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="lo-que-no-usamos-y-por-que">Lo que NO usamos (y por qué)</h2>
+<h3 id="cloud-sql">Cloud SQL</h3>
+<p>Usamos PlanetScale en lugar de Cloud SQL de GCP porque:
+- PlanetScale tiene un nivel de desarrollo gratuito
+- Sin servidor (sin gestión de servidores)
+- Las ramas de base de datos son excelentes para el flujo de trabajo (rama para feature, fusionar, desplegar)
+- Precio más simple</p>
+<p>Si necesitas características completas de Postgres (como restricciones de clave foránea), podrías usar Cloud SQL de GCP en su lugar — requiere gestionar el servidor de base de datos tú mismo, pero ofrece compatibilidad completa con Postgres.</p>
+<h3 id="kubernetes-gke">Kubernetes (GKE)</h3>
+<p>Kubernetes es más poderoso pero significativamente más complejo. Cloud Run es más simple para nuestro caso de uso — maneja escalado, redes y SSL automáticamente. No necesitamos el control que Kubernetes proporciona.</p>
+<h3 id="balanceador-de-carga">Balanceador de carga</h3>
+<p>Cloud Run maneja HTTPS y enrutamiento automáticamente. No necesitamos un balanceador de carga separado.</p>
+<hr />
+<h2 id="navegacion">Navegación</h2>
+<ul>
+<li><a href="../01_introduction/">01 — Introduction: What We're Building</a></li>
+<li><a href="../02_terraform_overview/">02 — Terraform Overview</a></li>
+<li>03 — Cloud Services Explained (Capítulo actual)</li>
+<li><a href="../04_planetscale/">04 — PlanetScale Database Explained</a></li>
+<li><a href="../05_project_setup/">05 — Project Setup &amp; Terraform State</a></li>
+<li><a href="../06_gcp_project/">06 — GCP Project &amp; APIs</a></li>
+<li><a href="../07_artifact_registry/">07 — Artifact Registry</a></li>
+<li><a href="../09_secrets/">08 — Secrets Management</a></li>
+<li><a href="../10_storage/">09 — Cloud Storage</a></li>
+<li><a href="../11_iam/">10 — Service Accounts &amp; IAM</a></li>
+<li><a href="../12_cloud_run/">11 — Cloud Run</a></li>
+<li><a href="../13_tasks/">12 — Cloud Tasks &amp; Scheduler</a></li>
+<li><a href="../14_dockerfile/">13 — Dockerfile</a></li>
+<li><a href="../15_first_deploy/">14 — First Deploy</a></li>
+<li><a href="../16_domain_ssl/">15 — Custom Domain &amp; SSL</a></li>
+<li><a href="../17_wif/">16 — Workload Identity Federation</a></li>
+<li><a href="../18_github_actions/">17 — GitHub Actions CI/CD</a></li>
+<li><a href="../19_quick_reference/">18 — Quick Reference</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

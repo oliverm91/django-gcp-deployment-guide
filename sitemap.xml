@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/01_introduction/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/01_introduction/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/01_introduction/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/02_terraform_overview/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/02_terraform_overview/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/02_terraform_overview/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/03_cloud_services/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/03_cloud_services/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/03_cloud_services/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/04_planetscale/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/04_planetscale/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/04_planetscale/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/05_project_setup/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/05_project_setup/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/05_project_setup/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/06_gcp_project/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/06_gcp_project/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/06_gcp_project/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/07_artifact_registry/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/07_artifact_registry/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/07_artifact_registry/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/09_secrets/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/09_secrets/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/09_secrets/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/10_storage/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/10_storage/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/10_storage/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/11_iam/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/11_iam/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/11_iam/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/12_cloud_run/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/12_cloud_run/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/12_cloud_run/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/13_tasks/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/13_tasks/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/13_tasks/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/14_dockerfile/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/14_dockerfile/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/14_dockerfile/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/15_first_deploy/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/15_first_deploy/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/15_first_deploy/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/16_domain_ssl/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/16_domain_ssl/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/16_domain_ssl/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/17_wif/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/17_wif/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/17_wif/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/18_github_actions/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/18_github_actions/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/18_github_actions/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/19_quick_reference/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/19_quick_reference/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/19_quick_reference/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/01_introduction/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/01_introduction/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/01_introduction/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/02_terraform_overview/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/02_terraform_overview/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/02_terraform_overview/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/03_cloud_services/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/03_cloud_services/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/03_cloud_services/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/04_planetscale/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/04_planetscale/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/04_planetscale/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/05_project_setup/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/05_project_setup/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/05_project_setup/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/06_gcp_project/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/06_gcp_project/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/06_gcp_project/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/07_artifact_registry/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/07_artifact_registry/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/07_artifact_registry/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/09_secrets/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/09_secrets/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/09_secrets/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/10_storage/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/10_storage/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/10_storage/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/11_iam/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/11_iam/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/11_iam/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/12_cloud_run/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/12_cloud_run/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/12_cloud_run/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/13_tasks/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/13_tasks/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/13_tasks/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/14_dockerfile/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/14_dockerfile/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/14_dockerfile/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/15_first_deploy/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/15_first_deploy/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/15_first_deploy/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/16_domain_ssl/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/16_domain_ssl/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/16_domain_ssl/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/17_wif/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/17_wif/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/17_wif/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/18_github_actions/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/18_github_actions/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/18_github_actions/"/>
+    </url>
+    <url>
+        <loc>https://oliverm91.github.io/django-terraform-deployment-guide/es/19_quick_reference/</loc>
+        <lastmod>2026-04-23</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://oliverm91.github.io/django-terraform-deployment-guide/es/19_quick_reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://oliverm91.github.io/django-terraform-deployment-guide/19_quick_reference/"/>
+    </url>
+</urlset>
