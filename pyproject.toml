@@ -1,7 +1,7 @@
 [project]
-name = "gcp-deploy-guide"
+name = "terraform-deploy-guide"
 version = "0.1.0"
-description = "A guide to deploy django projects on Google Cloud Platform GCP."
+description = "A guide to deploy django projects in the Cloud using Terraform."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = []

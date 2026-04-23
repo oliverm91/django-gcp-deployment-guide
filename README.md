@@ -9,10 +9,12 @@ This repository contains the source markdown files for the GCP Deployment Guide.
 
 ### Stack
 - **Cloud Run** (Serverless Containers)
-- **Cloud SQL** (Managed PostgreSQL)
+- **PlanetScale** (Serverless PostgreSQL)
 - **Cloud Storage** (Media & Static Files)
 - **Secret Manager** (Secure credentials)
 - **Artifact Registry** (Private Docker Images)
+- **Cloud Tasks** (Background Job Scheduling)
+- **Terraform** (Infrastructure as Code)
 - **GitHub Actions** (CI/CD Pipeline)
 - **Workload Identity Federation** (Keyless Auth)
 
