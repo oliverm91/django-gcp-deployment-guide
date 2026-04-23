@@ -1,11 +1,8 @@
-# GCP Deployment Guide
+# Infrastructure as Code Deployment Guide
 
-A pristine, automated, and battle-tested guide to deploying Django web applications securely onto Google Cloud Platform container infrastructure running a fully automated CI/CD pipeline.
+A battle-tested, step-by-step guide to deploying Django web applications using Terraform and cloud infrastructure. Examples use Google Cloud Platform, but the principles apply to any cloud provider.
 
-👉 **[Read the Full Live Documentation Here](https://oliverm91.github.io/django-gcp-deployment-guide/)**
-
-## Overview
-This repository contains the source markdown files for the GCP Deployment Guide. The live documentation site is automatically generated using MkDocs Material and deployed to GitHub Pages via Actions.
+The live documentation site is automatically generated using MkDocs Material and deployed to GitHub Pages via Actions.
 
 ### Stack
 - **Cloud Run** (Serverless Containers)
