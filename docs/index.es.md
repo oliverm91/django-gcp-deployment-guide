@@ -1,126 +1,151 @@
 ---
-description: "Una guía completa para desplegar una aplicación web Django en Google Cloud Platform usando Cloud Run, Cloud SQL y GitHub Actions."
+description: "Una guía completa para desplegar una aplicación web Django usando Terraform, cubriendo infraestructura en la nube, despliegue contenedorizado y CI/CD automatizado."
 image: assets/social-banner.png
-
----
-# Guía de Despliegue de Django en GCP
-
-¡Bienvenido! Esta guía práctica te enseñará exactamente cómo tomar un proyecto local Django y desplegarlo de forma profesional en Google Cloud Platform usando patrones de infraestructura modernos y altamente escalables.
-
-Al terminar estos capítulos, habrás construido un pipeline CI/CD completamente automatizado desde cero. Cada vez que subas código nuevo a GitHub, tu aplicación se compilará, se probará automáticamente y se publicará en internet al instante, sin ninguna intervención manual.
-
 ---
 
-## Qué se despliega
+# Guía de Despliegue Django — Edición Terraform
 
-Aunque usamos una aplicación web genérica de Django como ejemplo, **los conceptos de infraestructura que aprenderás aplican a casi cualquier framework web moderno**.
+¡Bienvenido! Esta guía te enseña cómo desplegar una aplicación web Django en la nube usando **Terraform** para gestionar toda la infraestructura como código.
 
-Tu aplicación final funcionará como un **contenedor Docker** protegido, alojado en **Cloud Run** — el potente motor serverless de Google. Esto significa que tu aplicación escalará sin esfuerzo ante picos de tráfico masivos y, cuando esté inactiva, bajará automáticamente a cero instancias para ahorrarte dinero.
+Al terminar, tendrás un pipeline automatizado donde cada push a GitHub construye, prueba y despliega automáticamente tu aplicación — sin pasos manuales.
+
+## Infraestructura como código
+
+Toda la infraestructura en la nube de esta guía está definida en archivos de configuración de **Terraform**. En lugar de hacer clic en una consola web o ejecutar comandos CLI manuales, todo vive en archivos bajo control de versiones.
+
+Beneficios de este enfoque:
+
+- **Documentado** — toda tu infraestructura está en control de versiones
+- **Reproducible** — destruir y recrear desde cero de forma confiable
+- **Revisable** — los cambios son visibles en pull requests antes de aplicar
+- **Portable** — el mismo lenguaje de configuración funciona en diferentes proveedores de nube
+
+El flujo es: escribir configuración → ejecutar `terraform plan` para previsualizar → ejecutar `terraform apply` para crear.
+
+## Qué construiremos
+
+Esta guía implementa infraestructura en **Google Cloud Platform (GCP)** con una base de datos Postgres de **PlanetScale**.
+
+Tu aplicación se ejecuta como un **contenedor Docker** en una plataforma de contenedores sin servidor. Escala a cero cuando está inactiva (sin costo), escala automáticamente bajo carga y maneja HTTPS automáticamente.
+
+La infraestructura consiste en:
+
+- **Plataforma de contenedores** — ejecuta tu Django como contenedor Docker
+- **Cola de trabajos en segundo plano** — maneja trabajo asíncrono (envío de emails, procesamiento de datos)
+- **Tareas programadas** — activa trabajos en segundo plano en un horario tipo cron
+- **Almacenamiento de objetos** — archivos estáticos (CSS, JS) y medios subidos por usuarios
+- **Registro de contenedores** — almacenamiento privado para imágenes Docker
+- **Gestión de secretos** — credenciales almacenadas de forma segura, inyectadas en tiempo de ejecución
+- **Postgres gestionado** — base de datos sin servidor con flujo de trabajo de ramificación
+- **GitHub Actions** — pipeline CI/CD para despliegues automatizados
+- **Workload Identity** — autenticación segura sin claves de GitHub a tu nube
 
 ## Arquitectura
 
-![Arquitectura](assets/diagram-runtime.svg)
-
-**El flujo automatizado:** Una vez que la configuración inicial está lista, el despliegue se vuelve completamente automático. Cuando fusionas una nueva funcionalidad en la rama `main`, GitHub Actions se activa. Usando Workload Identity, inicia sesión en tu cuenta de Google Cloud de forma segura, sin depender de claves JSON de larga duración. Empaqueta tu nuevo código Django en una imagen Docker fresca, la archiva en Artifact Registry y le indica a Cloud Run que levante la nueva versión. En segundos, los usuarios activos pasan al contenedor recién desplegado, obteniendo archivos static desde Cloud Storage y consultando tu base de datos PostgreSQL en Cloud SQL.
-
-## Servicios utilizados
-
-| Servicio | Para qué sirve |
-|---|---|
-| **Cloud Run** | Ejecuta la aplicación Django como un contenedor. Escala a cero cuando está inactiva, escala bajo carga. Gestiona HTTPS automáticamente. |
-| **Artifact Registry** | Almacena las imágenes Docker. Como Docker Hub pero privado y dentro de GCP. |
-| **Cloud SQL** | Base de datos PostgreSQL gestionada. Google se encarga de los backups, parches y disponibilidad. |
-| **Secret Manager** | Almacena credenciales (contraseña BD, secret key, API keys). Inyectadas en el contenedor en tiempo de ejecución — nunca en el código. |
-| **Cloud Storage** | Almacenamiento de objetos para archivos subidos por usuarios y los archivos static de Django. |
-| **GitHub Actions** | Ejecuta el pipeline CI/CD en cada push. Gratis para 2.000 minutos por mes. |
-| **Workload Identity Federation** | Permite que GitHub Actions se autentique en GCP sin almacenar credenciales de larga duración en los secrets de GitHub. |
+```
+Push a GitHub
+    │
+    └── GitHub Actions (CI/CD)
+              │
+              ├── Ejecutar tests
+              ├── Construir imagen Docker
+              ├── Subir a Registro de Contenedores
+              │
+              ▼
+         Plataforma de Contenedores (web)
+              │
+              ├── Lee secretos de Secret Manager
+              ├── Lee/escribe archivos a Object Storage
+              ├── Se conecta a Postgres gestionado
+              └── Envía trabajo en segundo plano a Job Queue
+                        │
+                        ▼
+                   Cola de Trabajos en Segundo Plano
+                        │
+                        ▼
+                   Worker de Jobs (contenedor separado)
+```
 
 ## Capítulos
 
-Los capítulos están ordenados por **dependencia de configuración** — cada uno prepara la infraestructura que el siguiente necesita. Pero el flujo de desarrollo cotidiano es el inverso: subes código → GitHub Actions → construye la imagen → despliega en Cloud Run → lee de la infraestructura inferior.
+La guía está estructurada en tres partes:
 
-### Orden de configuración (sigue este orden en el primer despliegue)
+### Parte 1 — Fundamentos (sin código todavía)
 
-1. [Configuración del Proyecto GCP](01_gcp_setup.es.md) — proyecto, APIs, service account
-2. [Artifact Registry](02_artifact_registry.es.md) — donde se almacenan las imágenes Docker
-3. [Cloud SQL — Base de datos](03_cloud_sql.es.md) — PostgreSQL, migraciones
-4. [Secret Manager](04_secret_manager.es.md) — credenciales, API keys
-5. [Cloud Storage — Archivos media y static](05_cloud_storage.es.md) — subidas, CSS/JS
-6. [Dockerfile](06_dockerfile.es.md) — empaquetar la app como contenedor
-7. [Primer Despliegue](07_first_deploy.es.md) — despliegue manual para verificar que todo funciona
-8. [Dominio Personalizado y SSL](08_domain_ssl.es.md) — mycoolproject.cl, HTTPS
-9. [Workload Identity — Autenticación sin claves](09_workload_identity.es.md) — auth de GitHub a GCP sin claves
-10. [GitHub Actions — Pipeline CI/CD](10_github_actions.es.md) — automatiza todo lo anterior en cada push
-11. [Referencia Rápida](11_quick_reference.es.md) — todos los comandos en un solo lugar
-12. [Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md) — configuración de correo transaccional
-13. [Bonus: Django Tasks](13_django_tasks.es.md) — procesamiento de tareas en segundo plano con django.tasks (incorporado en Django 6.0)
-    - [13.A — Cloud Tasks via HTTP (recomendado)](13_django_tasks_cloud_tasks.es.md)
-    - [13.B — db_worker embebido (alternativa)](13_django_tasks_embedded.es.md)
+1. [Introducción — Qué construiremos](01_introduction.es.md)
+2. [Visión general de Terraform](02_terraform_overview.es.md)
+3. [Servicios en la nube explicados](03_cloud_services.es.md)
+4. [Postgres gestionado explicado](04_planetscale.es.md)
 
-### Flujo de desarrollo cotidiano (una vez desplegado)
+### Parte 2 — Infraestructura con Terraform
 
-![Diagrama de flujo](workflow.svg)
+5. [Configuración del proyecto y estado de Terraform](05_project_setup.es.md)
+6. [Proyecto GCP y APIs](06_gcp_project.es.md)
+7. [Artifact Registry](07_artifact_registry.es.md)
+8. [Gestión de Secretos](09_secrets.es.md)
+9. [Object Storage](10_storage.es.md)
+10. [Service Accounts e IAM](11_iam.es.md)
+11. [Cloud Run](12_cloud_run.es.md)
+12. [Trabajos en segundo plano y Scheduler](13_tasks.es.md)
 
-> **💡 Nota sobre los despliegues:** Abrir o actualizar un Pull Request **solo ejecuta tus pruebas** para asegurar que el código está en buen estado. Los pasos de despliegue (Build, Migrate, Deploy) solo se ejecutan cuando el código es oficialmente **fusionado/subido** a la rama `main`.
+### Parte 3 — Despliegue y Automatización
+
+13. [Dockerfile](14_dockerfile.es.md)
+14. [Primer Despliegue](15_first_deploy.es.md)
+15. [Dominio personalizado y SSL](16_domain_ssl.es.md)
+16. [Workload Identity Federation](17_wif.es.md)
+17. [GitHub Actions CI/CD](18_github_actions.es.md)
+18. [Referencia Rápida](19_quick_reference.es.md)
+
+---
+
+## Requisitos previos
+
+- Un repositorio GitHub con tu proyecto Django
+- Una cuenta en la nube (GCP en esta guía — cuentas nuevas reciben $300 en créditos gratuitos)
+- Una cuenta de Postgres gestionado (PlanetScale en esta guía — planes de pago desde $5/mes)
+- CLI `gcloud` instalado y autenticado (para GCP)
+- Docker instalado localmente
+- Terraform instalado
+
+---
 
 ## Resumen de costos
 
-> **Las cuentas nuevas de GCP reciben $300 en créditos gratuitos** — suficiente para ejecutar todo durante meses antes de pagar algo. **Los créditos vencen 90 días después de la creación de la cuenta**, independientemente del uso.
+Esta guía usa GCP y PlanetScale. Los costos abajo reflejan esos servicios:
 
 | Servicio | Nivel gratuito | Costo después del nivel gratuito |
 |---|---|---|
-| Cloud Run | 2M solicitudes + 360K CPU GB-s/mes | ~$0.00004/solicitud |
-| Artifact Registry | 0.5 GB almacenamiento/mes | $0.10/GB/mes |
-| Secret Manager | 6 versiones + 10K accesos/mes | $0.06/versión/mes |
-| Cloud Storage | 5 GB/mes | ~$0.023/GB/mes |
-| Cloud Storage egreso | — | ~$0.08–0.12/GB (servir archivos a usuarios) |
-| GitHub Actions | 2.000 min/mes (repo privado) | $0.008/min |
+| Plataforma de contenedores | 2M solicitudes + 360K CPU GB-s/mes | ~$0.00004/solicitud |
+| Registro de contenedores | 0.5 GB/mes | $0.10/GB/mes |
+| Gestión de secretos | 6 secretos + 10K accesos/mes | $0.06/secreto/mes |
+| Object storage | 5 GB/mes | ~$0.023/GB/mes |
+| Trabajos en segundo plano | Gratis hasta 1M acciones/mes | $0.40/millón |
+| Programador de tareas | 3 trabajos gratis/mes | $0.10/trabajo/mes |
+| GitHub Actions | 2,000 min/mes (repo privado) | $0.008/min |
 | Workload Identity | Ilimitado | Gratis |
-| Cloud Tasks | 1 M operaciones/mes | $0.40/M operaciones |
-| **Cloud SQL** | ❌ **Sin nivel gratuito** | **~$7–10/mes siempre activo** |
-| Dominio personalizado | — | ~$10–15/año en tu registrador |
-| Certificado SSL | Gratis (gestionado por GCP) | — |
+| Postgres gestionado | Sin plan gratuito | **$5/mes** para Postgres de un solo nodo |
+| Certificado SSL | Gratis (gestionado) | — |
 
-**Cloud SQL es el único servicio que comienza a cobrar inmediatamente y de forma continua.** Configúralo de último — justo antes de salir a producción — para minimizar el gasto en inactividad.
+> **PlanetScale** no tiene plan gratuito. Todas las bases de datos requieren una suscripción de pago. Postgres de un solo nodo comienza en **$5/mes**.
 
-### Orden recomendado de configuración para minimizar costos
+### Estimación de costo para bajo tráfico
 
-Primero estos — todos gratuitos:
+Para un proyecto hobby o sitio de bajo tráfico con escala-a-cero habilitada:
 
-- Capítulos 01, 02, 04, 09, 10 (proyecto GCP, Artifact Registry, Secret Manager, Workload Identity, GitHub Actions)
+| Servicio | Costo mensual |
+|---|---|
+| Plataforma de contenedores | $0 (dentro del nivel gratuito) |
+| Registro de contenedores | $0 (dentro del nivel gratuito) |
+| Gestión de secretos | $0 (dentro del nivel gratuito) |
+| Object storage | ~$1 (5 GB estático + 1 GB medios) |
+| Trabajos en segundo plano | $0 (dentro del nivel gratuito) |
+| Programador de tareas | $0.30 (3 trabajos, primeros 3 gratis) |
+| GitHub Actions | $0 (dentro del nivel gratuito) |
+| Postgres gestionado | **$5** |
+| **Total** | **~$6–7/mes** |
 
-Luego casi gratuitos:
+La escala-a-cero de Cloud Run significa que no pagas nada cuando no hay tráfico. Los costos de arriba aplican a un sitio con ligera actividad de trabajos en segundo plano.
 
-- Capítulos 05, 06, 07 (Cloud Storage, Dockerfile, despliegue en Cloud Run)
-
-Luego cuando estés listo para salir a producción (comienzan los costos):
-
-- Capítulo 03 — Cloud SQL (~$7–10/mes desde el momento en que se crea)
-- Capítulo 08 — Dominio personalizado (~$10–15/año, pagado a tu registrador)
-
----
-
-## Prerrequisitos
-
-- [gcloud CLI](https://cloud.google.com/sdk/docs/install) instalado y autenticado (`gcloud auth login`)
-- Docker instalado localmente (para el primer despliegue manual)
-- Una cuenta de GCP (las cuentas nuevas reciben $300 en créditos gratuitos)
-- Un repositorio de GitHub con el código fuente del proyecto
-
----
-
-## 📖 Capítulos
-
-- [01 — Configuración del Proyecto GCP](01_gcp_setup.es.md)
-- [02 — Artifact Registry](02_artifact_registry.es.md)
-- [03 — Cloud SQL (Base de Datos PostgreSQL)](03_cloud_sql.es.md)
-- [04 — Secret Manager](04_secret_manager.es.md)
-- [05 — Cloud Storage (Archivos media y static)](05_cloud_storage.es.md)
-- [06 — Dockerfile](06_dockerfile.es.md)
-- [07 — Primer Despliegue](07_first_deploy.es.md)
-- [08 — Dominio Personalizado y SSL](08_domain_ssl.es.md)
-- [09 — Workload Identity Federation (Autenticación sin claves en GitHub Actions)](09_workload_identity.es.md)
-- [10 — Pipeline CI/CD con GitHub Actions](10_github_actions.es.md)
-- [11 — Referencia Rápida](11_quick_reference.es.md)
-- [12 — Bonus: Email Personalizado (@dominio.cl)](12_custom_email.es.md)
-- [13 — Bonus: Django Tasks](13_django_tasks.es.md) — procesamiento de tareas en segundo plano con django.tasks
+## Introducción al proyecto
+[Introducción — Qué construiremos](01_introduction.es.md)

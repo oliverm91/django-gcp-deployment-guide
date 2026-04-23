@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://oliverm91.github.io/django-gcp-deployment-guide/sitemap.xml
